@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0f1e;
-    --card: #111827;
-    --card2: #1a2235;
-    --accent: #c9622a;
-    --accent2: #7c6af7;
-    --text: #f0f4ff;
-    --muted: #7a8aaa;
-    --green: #22c55e;
-    --red: #ef4444;
-    --border: rgba(255,255,255,0.07);
+    --bg: #faf6f1;
+    --card: #ffffff;
+    --card2: #f7f0e7;
+    --accent: #d97b45;
+    --accent2: #a99bdb;
+    --text: #2e2a25;
+    --muted: #96897a;
+    --green: #4caf7d;
+    --red: #e2685f;
+    --border: rgba(0,0,0,0.08);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,7 +51,7 @@
   .hero {
     width: calc(100% - 32px);
     max-width: 388px;
-    background: linear-gradient(135deg, #1a2540 0%, #0f1829 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #fbe9da 100%);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 20px;
@@ -77,7 +77,7 @@
 
   .budget-bar-wrap { margin-top: 16px; }
   .budget-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-  .budget-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+  .budget-bar { height: 6px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
   .budget-fill {
     height: 100%; width: 0%; border-radius: 99px;
     background: linear-gradient(90deg, var(--accent2), var(--accent));
@@ -110,7 +110,7 @@
     gap: 12px;
     animation: slideIn 0.5s ease 0.65s both;
   }
-  .discovery-icon { font-size: 26px; flex-shrink: 0; }
+  .discovery-icon { flex-shrink: 0; color: var(--green); display: flex; align-items: center; }
   .discovery-text { font-size: 13px; line-height: 1.7; }
   .discovery-text .big { font-size: 15px; font-weight: 700; color: var(--green); }
 
@@ -151,9 +151,16 @@
   .msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.6; animation: msgIn 0.3s ease both; }
   @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .msg.bot { background: var(--card2); border: 1px solid var(--border); border-bottom-right-radius: 4px; align-self: flex-start; }
-  .msg.user { background: linear-gradient(135deg, var(--accent2), #5a4fd4); align-self: flex-end; border-bottom-left-radius: 4px; }
+  .msg.user { background: linear-gradient(135deg, var(--accent2), #6f5fc4); color: #ffffff; align-self: flex-end; border-bottom-left-radius: 4px; }
+  .msg.urgent { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.35); border-bottom-right-radius: 4px; align-self: flex-start; }
+  .msg.forecast { background: rgba(124,106,247,0.1); border: 1px solid rgba(124,106,247,0.3); border-bottom-right-radius: 4px; align-self: flex-start; }
+  .msg-action-btn.urgent-btn { background: linear-gradient(135deg, #ef4444, #c0392b); }
   .msg .highlight { color: var(--accent); font-weight: 600; }
   .msg .good { color: var(--green); font-weight: 600; }
+
+  .icon-inline { width: 15px; height: 15px; vertical-align: -3px; margin-left: 2px; }
+  .icon-md { width: 20px; height: 20px; }
+  .icon-lg { width: 26px; height: 26px; }
 
   .typing {
     display: flex; gap: 4px; align-items: center; padding: 12px 14px;
@@ -172,6 +179,21 @@
     border-radius: 99px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
   }
   .quick-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+  .msg-action-btn {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border: none;
+    color: white;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.2s;
+  }
+  .msg-action-btn:hover { transform: scale(1.02); }
+  .msg-action-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
 
   .chat-input { padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid var(--border); }
   .chat-input input {
@@ -366,7 +388,7 @@
   }
   .loading-logo { font-size: 32px; font-weight: 700; }
   .loading-logo span { color: var(--accent); }
-  .loading-bar { width: 120px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+  .loading-bar { width: 120px; height: 3px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
   .loading-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 99px; animation: load 1.5s ease forwards; }
   @keyframes load { from { width: 0%; } to { width: 100%; } }
 
@@ -421,10 +443,10 @@
 
 <div id="loginScreen">
   <div class="login-logo-wrap">
-    <div class="login-icon">🏦</div>
+    <div class="login-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 21 8 3 8"/></svg></div>
     <div class="login-logo"><span>حاسب</span></div>
     <div class="login-sub">مصرف الإنماء</div>
-    <div class="login-sub" style="margin-top:2px; color:var(--green);">🔍 يلقط اشتراكاتك المنسية قبل لا تنساها</div>
+    <div class="login-sub" style="margin-top:2px; color:var(--green); display:flex; align-items:center; justify-content:center; gap:4px;"><svg class="icon-inline" style="margin:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> يلقط اشتراكاتك المنسية قبل لا تنساها</div>
   </div>
 
   <div class="login-card">
@@ -462,11 +484,11 @@
   </div>
 </div>
 
-<div id="view-home" class="view">
+<div id="view-home" class="view" style="display:none">
 
   <div class="hero">
     <div class="hero-greeting">مرحباً بك،</div>
-    <div class="hero-name">فهد <span>العتيبي</span> 👋</div>
+    <div class="hero-name">فهد <span>العتيبي</span></div>
     <div class="balance-row">
       <div>
         <div class="balance-label">الرصيد المتاح</div>
@@ -489,7 +511,7 @@
   </div>
 
   <div class="discovery-card">
-    <div class="discovery-icon">💰</div>
+    <div class="discovery-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
     <div class="discovery-text">
       اكتشفنا لك <span class="big">273 ر.س/شهر</span> بمصاريف اشتراكات منسية —
       يعني تقريباً <span class="big">3,276 ر.س</span> لو استمرت طول السنة!
@@ -498,11 +520,11 @@
 
   <div class="panel-card">
     <div class="panel-header">
-      <span class="panel-title">🔍 تدقيق الاشتراكات</span>
+      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> تدقيق الاشتراكات</span>
       <span class="panel-badge" id="subsSavings">وفّر حتى 273 ر.س/شهر</span>
     </div>
     <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
-      <span style="background:rgba(124,106,247,0.15); color:var(--accent2); padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:700; flex-shrink:0;">⚡ Agentic AI</span>
+      <span style="background:rgba(124,106,247,0.15); color:var(--accent2); padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:700; flex-shrink:0; display:inline-flex; align-items:center; gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Agentic AI</span>
       <span style="font-size:11px; color:var(--muted);">ما يقترح بس — اضغطي "إلغاء" وشوفي كيف ينفذها فعلياً</span>
     </div>
 
@@ -551,7 +573,7 @@
   </div>
 
   <div class="alert-card">
-    <div class="alert-icon">⚠️</div>
+    <div class="alert-icon" style="color:var(--accent); display:flex; align-items:center;"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
     <div class="alert-text">
       صرفت <strong>4,760 ر.س</strong> من راتبك في أول 3 أسابيع.
       إذا كملت بنفس الوتيرة، <strong>الراتب يخلص قبل نهاية الشهر بـ 6 أيام</strong>.
@@ -562,18 +584,18 @@
     <div class="stat-card">
       <div class="stat-label">أعلى مصروف</div>
       <div class="stat-value up">1,200 ر.س</div>
-      <div class="stat-sub">مطاعم وكافيهات ☕</div>
+      <div class="stat-sub" style="display:flex; align-items:center; gap:4px;">مطاعم وكافيهات <svg class="icon-inline" style="margin:0; color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
     </div>
     <div class="stat-card">
       <div class="stat-label">وفرت هذا الشهر</div>
       <div class="stat-value down">340 ر.س</div>
-      <div class="stat-sub">مقارنة بالشهر الماضي 📉</div>
+      <div class="stat-sub" style="display:flex; align-items:center; gap:4px;">مقارنة بالشهر الماضي <svg class="icon-inline" style="margin:0; color:var(--green);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>
     </div>
   </div>
 
   <div class="panel-card">
     <div class="panel-header">
-      <span class="panel-title">🎯 هدف الادخار</span>
+      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> هدف الادخار</span>
     </div>
     <div class="goal-form">
       <input type="text" id="goalName" placeholder="اسم الهدف (مثال: رحلة، جوال جديد)">
@@ -588,7 +610,7 @@
 
   <div class="panel-card">
     <div class="panel-header">
-      <span class="panel-title">📩 جرّب على رسالة بنكية حقيقية</span>
+      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg> جرّب على رسالة بنكية حقيقية</span>
     </div>
     <div style="font-size:11.5px; color:var(--muted); margin-bottom:10px; line-height:1.6;">
       الصق رسالة SMS وصلتك من أي بنك (مثال: "تم خصم 85.50 ريال من حسابك لدى XX في متجر ستاربكس") وشوف كيف "حساب" يفهمها ويصنفها تلقائياً — بدون أي ربط API.
@@ -606,10 +628,10 @@
 
 </div>
 
-<div id="view-chat" class="view" style="display:none">
+<div id="view-chat" class="view">
   <div class="chat-section" style="margin-top:8px">
     <div class="chat-header">
-      <div class="chat-avatar">🤖</div>
+      <div class="chat-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="11"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></div>
       <div>
         <div class="chat-title">مساعدك المالي الذكي</div>
         <div class="chat-status">● متصل الآن</div>
@@ -618,13 +640,22 @@
 
     <div class="chat-messages" id="messages">
       <div class="msg bot">
-        مرحباً فهد! 👋 أنا مساعدك المالي. لاحظت بعض الأنماط في مصاريفك هذا الشهر. كيف أقدر أساعدك؟
+        فهد! 👋 لقيت لك اشتراك <b>نتفليكس</b> كان منسي له شهرين تقريباً وغير فعال — لو تبي، أقدر ألغيه الحين ووفر لك <b>45 ر.س/شهر</b> (يعني حوالي <b>540 ر.س</b> بالسنة) 💰
+        <div style="margin-top:10px;">
+          <button class="msg-action-btn" id="chatCancelNetflix" onclick="chatCancelSub('netflix', 45, this)">✅ ألغِ الاشتراك الآن</button>
+        </div>
+      </div>
+      <div class="msg forecast">
+        🌦️ <b>نشرة حساب الأسبوعية:</b> الأسبوع الجاي فيه راتبك الجديد وبيصادف قرب مناسبة — تاريخياً تصرف وقتها أكثر بحوالي 40%. أبي أجهز لك خطة احتياطية مسبقة عشان ما يفاجئك الوضع؟
+        <div style="margin-top:10px;">
+          <button class="msg-action-btn" onclick="prepareForecastPlan(this)">📋 جهّز الخطة الاحتياطية</button>
+        </div>
       </div>
     </div>
 
     <div class="quick-replies">
-      <button class="quick-btn" onclick="sendQuick('وين راحت فلوسي؟')">وين راحت فلوسي؟</button>
-      <button class="quick-btn" onclick="sendQuick('كيف أوفر أكثر؟')">كيف أوفر أكثر؟</button>
+      <button class="quick-btn" onclick="sendQuick('وريني باقي الاشتراكات المنسية')">وريني باقي الاشتراكات</button>
+      <button class="quick-btn" onclick="triggerEmergencyMode()">🚨 جرب وضع الطوارئ</button>
       <button class="quick-btn" onclick="sendQuick('ساعدني أحقق هدف الادخار')">ساعدني أحقق هدفي</button>
     </div>
 
@@ -670,18 +701,16 @@
 </div>
 
 <div class="bottom-nav" id="bottomNav">
-  <button class="nav-item active" data-view="home" onclick="switchView('home')">
-    <span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span>
-  </button>
-  <button class="nav-item" data-view="chat" onclick="switchView('chat')">
-    <span class="nav-icon">💬</span><span class="nav-label">المساعد</span>
-  </button>
-  <button class="nav-item" data-view="settings" onclick="switchView('settings')">
-    <span class="nav-icon">⚙️</span><span class="nav-label">الإعدادات</span>
-  </button>
+  <button class="nav-item" data-view="home" onclick="switchView('home')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>الرئيسية</span></button>
+  <button class="nav-item active" data-view="chat" onclick="switchView('chat')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>المساعد</span></button>
+  <button class="nav-item" data-view="settings" onclick="switchView('settings')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>الإعدادات</span></button>
 </div>
 
 <script>
+  // ⚠️ عدّلي هذا الرابط بعد ما تنشرين خادم hasib-proxy على Render (خطوات بالأسفل)
+  // مثال: 'https://hasib-proxy.onrender.com'
+  const CHAT_PROXY_URL = 'https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com';
+
   const VALID_CREDENTIALS = { id: '1029384756', password: 'amad2026' };
   const SUB_PRICES = { netflix: 45, gym: 199, yoga: 29 };
 
@@ -854,6 +883,8 @@
     if (nameEl) nameEl.classList.add('cancelled');
     if (statusEl) { statusEl.textContent = 'ملغى'; statusEl.className = 'sub-status'; statusEl.style.background = 'rgba(122,138,170,0.15)'; statusEl.style.color = 'var(--muted)'; }
     if (btn) { btn.textContent = '✓ تم الإلغاء'; btn.disabled = true; }
+    const chatBtn = document.getElementById(`chatCancel${id.charAt(0).toUpperCase()}${id.slice(1)}`);
+    if (chatBtn) { chatBtn.textContent = '✅ تم الإلغاء'; chatBtn.disabled = true; }
   }
 
   function updateSubsBadge() {
@@ -864,12 +895,111 @@
     }
   }
 
+  const SUB_NAMES = { netflix: 'نتفليكس', gym: 'نادي فيتنس تايم', yoga: 'تطبيق تأمل ويوغا' };
+
   async function cancelSub(id, amount, btn) {
     markSubCancelledUI(id);
     monthlySavedFromSubs += amount;
     cancelledSubs.push(id);
     updateSubsBadge();
     await storageSet('cancelledSubs', JSON.stringify(cancelledSubs));
+
+    // Narrate the action through the AI chat, wherever it was triggered from
+    const name = SUB_NAMES[id] || id;
+    const annual = amount * 12;
+    const confirmMsg = `تم! ✅ ألغيت اشتراك <b>${name}</b> ووفرت لك <b>${amount} ر.س/شهر</b> (يعني <b>${annual} ر.س</b> بالسنة). راجعي "الرئيسية" لو تبين تشوفين التفاصيل، أو قولي لي إذا تبين أراجع اشتراك ثاني.`;
+    addMsg(confirmMsg, 'bot');
+    history.push({ role: 'assistant', content: confirmMsg });
+    await storageSet('chatHistory', JSON.stringify(history));
+
+    // Agentic chaining: don't stop at one action, propose the natural next step
+    setTimeout(() => offerGoalChain(amount), 700);
+  }
+
+  function chatCancelSub(id, amount, btn) {
+    btn.disabled = true;
+    cancelSub(id, amount, btn);
+  }
+
+  // ── Chaining: link freed-up money to a savings goal automatically ──
+  function offerGoalChain(amount) {
+    const nameField = document.getElementById('goalName');
+    const hasGoal = nameField.value.trim() !== '';
+    const chainMsg = hasGoal
+      ? `بما إنك وفرت ${amount} ر.س، أضيفها تلقائياً على هدف "${nameField.value.trim()}" وأسرّع لك الخطة؟`
+      : `بما إنك وفرت ${amount} ر.س، ما عندك هدف ادخار محدد بعد — أبي أسوي لك وحد تلقائياً (جوال جديد، 2000 ر.س خلال 12 أسبوع) وأضيف هذا التوفير له؟`;
+    const div = document.createElement('div');
+    div.className = 'msg forecast';
+    div.innerHTML = `${chainMsg}<div style="margin-top:10px;"><button class="msg-action-btn" onclick="chainToGoal(this)">🎯 ضيفها على هدفي</button></div>`;
+    document.getElementById('messages').appendChild(div);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+  }
+
+  function chainToGoal(btn) {
+    btn.disabled = true;
+    btn.textContent = '✅ تمت الإضافة';
+    const nameField = document.getElementById('goalName');
+    const amountField = document.getElementById('goalAmount');
+    const weeksField = document.getElementById('goalWeeks');
+    if (!nameField.value.trim()) {
+      nameField.value = 'جوال جديد';
+      amountField.value = 2000;
+      weeksField.value = 12;
+    }
+    calcGoal();
+    const resultBox = document.getElementById('goalResult');
+    const summary = resultBox ? resultBox.textContent.trim() : '';
+    addMsg(`تم تحديث خطة ادخارك ✅ ${summary}`, 'bot');
+    history.push({ role: 'assistant', content: `تم تحديث خطة ادخارك: ${summary}` });
+    storageSet('chatHistory', JSON.stringify(history));
+  }
+
+  // ── Financial weather forecast follow-up ──
+  function prepareForecastPlan(btn) {
+    btn.disabled = true;
+    btn.textContent = '✅ جاهزة';
+    const msg = `خطتك الاحتياطية جاهزة 📋: حاولي تحدّين مصاريف المطاعم بـ300 ر.س بدل 500 هالأسبوع، وخلي 100 ر.س جنب أول ما يوصل الراتب قبل لا تصرفينه. بذا تضمنين ما تدخلين منطقة الخطر آخر الشهر.`;
+    addMsg(msg, 'bot');
+    history.push({ role: 'assistant', content: msg });
+    storageSet('chatHistory', JSON.stringify(history));
+  }
+
+  // ── Emergency mode simulation ──
+  function triggerEmergencyMode() {
+    addMsg('🚨 جرب وضع الطوارئ', 'user');
+    const div = document.createElement('div');
+    div.className = 'msg urgent';
+    div.innerHTML = `⚠️ <b>تنبيه حرج:</b> لو رصيدك نزل لمنطقة الخطر (أقل من 10% من راتبك) قبل نهاية الشهر، حساب يتحول لوضع الطوارئ فوراً: يوقف كل الاشتراكات الغير ضرورية بضغطة وحدة، ويعطيك خطة نجاة لـ48 ساعة بدل النصائح العادية.
+      <div style="margin-top:10px;">
+        <button class="msg-action-btn urgent-btn" onclick="freezeAllSubs(this)">🚨 جمّد كل الاشتراكات غير الضرورية الآن</button>
+      </div>`;
+    document.getElementById('messages').appendChild(div);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+  }
+
+  async function freezeAllSubs(btn) {
+    btn.disabled = true;
+    btn.textContent = '⏳ جاري التجميد...';
+    let total = 0;
+    const frozen = [];
+    for (const id of Object.keys(SUB_PRICES)) {
+      if (!cancelledSubs.includes(id)) {
+        markSubCancelledUI(id);
+        monthlySavedFromSubs += SUB_PRICES[id];
+        cancelledSubs.push(id);
+        total += SUB_PRICES[id];
+        frozen.push(SUB_NAMES[id] || id);
+      }
+    }
+    updateSubsBadge();
+    await storageSet('cancelledSubs', JSON.stringify(cancelledSubs));
+    btn.textContent = '✅ تم التجميد';
+    const summary = frozen.length
+      ? `تم! ✅ جمّدت ${frozen.join('، ')} ووفرت لك <b>${total} ر.س/شهر</b> فوراً. رصيدك الحين بحال أفضل بكثير 💪`
+      : `كل اشتراكاتك مجمدة أو نشطة أصلاً، ما فيه شي إضافي أقدر أوقفه الحين.`;
+    addMsg(summary, 'bot');
+    history.push({ role: 'assistant', content: summary });
+    await storageSet('chatHistory', JSON.stringify(history));
   }
 
   const currentWeeklySavingRate = 340 / 4.3;
@@ -1033,30 +1163,54 @@
     return div;
   }
 
+  function getFallbackReply(userText) {
+    const t = userText.trim();
+    if (t.includes('فلوس') || t.includes('راحت')) {
+      return `أكبر مصروف عندك هذا الشهر مطاعم وكافيهات بـ<b>1,200 ر.س</b>، يليها اشتراكاتك (299 ر.س/شهر، بعضها منسي). راجعي التفاصيل من "الرئيسية" 📊`;
+    }
+    if (t.includes('أوفر') || t.includes('توفير') || t.includes('وفر')) {
+      return `أسرع طريقة: ألغي الاشتراكات غير المستخدمة (نتفليكس، النادي، تطبيق اليوغا) ووفري حتى <b>273 ر.س/شهر</b> — يعني <b>3,276 ر.س</b> بالسنة 💰`;
+    }
+    if (t.includes('هدف') || t.includes('ادخار')) {
+      return `افتحي بطاقة "🎯 هدف الادخار" بصفحة الرئيسية، حطي اسم هدفك والمبلغ وعدد الأسابيع، وبحسب لك خطة توفير أسبوعية فورية 🎯`;
+    }
+    if (t.includes('اشتراك')) {
+      return `عندك 3 اشتراكات مرشحة للإلغاء: <b>نتفليكس</b> (45 ر.س، منسي 62 يوم)، <b>نادي فيتنس تايم</b> (199 ر.س، استخدام منخفض)، و<b>تطبيق تأمل ويوغا</b> (29 ر.س، منسي 47 يوم). جربي تلغين وحد منها من صفحة الرئيسية ✅`;
+    }
+    return `أقدر أساعدك بمتابعة صرفك، اكتشاف الاشتراكات المنسية، أو حساب خطة ادخار. جربي أحد الأزرار السريعة أو اسأليني بشكل مباشر 🙂`;
+  }
+
   async function getBotReply() {
     const typing = showTyping();
+    const lastUserMsg = history.length ? history[history.length - 1].content : '';
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      if (CHAT_PROXY_URL.includes('REPLACE-WITH-YOUR-RENDER-URL')) {
+        throw new Error('Proxy not configured yet');
+      }
+      const res = await fetch(`${CHAT_PROXY_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
           system: SYSTEM_PROMPT,
           messages: history
         })
       });
+      if (!res.ok) throw new Error('API not available');
       const data = await res.json();
-      const reply = data.content?.[0]?.text || 'عذراً، ما قدرت أفهم سؤالك. حاول مرة ثانية.';
+      const reply = data.content?.[0]?.text || getFallbackReply(lastUserMsg);
       typing.remove();
       history.push({ role: 'assistant', content: reply });
       await storageSet('chatHistory', JSON.stringify(history));
       addMsg(reply, 'bot');
     } catch (e) {
       typing.remove();
-      addMsg('عذراً، في مشكلة في الاتصال. حاول مرة ثانية. 🔄', 'bot');
+      const reply = getFallbackReply(lastUserMsg);
+      history.push({ role: 'assistant', content: reply });
+      await storageSet('chatHistory', JSON.stringify(history));
+      addMsg(reply, 'bot');
     }
   }
 </script>
 </body>
 </html>
+
