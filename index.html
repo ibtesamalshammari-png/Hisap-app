@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حاسب المالي</title>
+<title>مساعد امد المالي</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf6f1;
-    --card: #ffffff;
-    --card2: #f7f0e7;
-    --accent: #d97b45;
-    --accent2: #a99bdb;
-    --text: #2e2a25;
-    --muted: #96897a;
-    --green: #4caf7d;
-    --red: #e2685f;
-    --border: rgba(0,0,0,0.08);
+    --bg: #0a0f1e;
+    --card: #111827;
+    --card2: #1a2235;
+    --accent: #c9622a;
+    --accent2: #7c6af7;
+    --text: #f0f4ff;
+    --muted: #7a8aaa;
+    --green: #22c55e;
+    --red: #ef4444;
+    --border: rgba(255,255,255,0.07);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,6 +31,7 @@
     align-items: center;
   }
 
+  /* TOP BAR */
   .topbar {
     width: 100%;
     max-width: 420px;
@@ -39,19 +40,35 @@
     align-items: center;
     padding: 16px 20px 8px;
   }
-  .topbar .logo { font-size: 13px; color: var(--muted); letter-spacing: 0.5px; }
-  .topbar .brand { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
+  .topbar .logo {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+  .topbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
   .brand-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 8px var(--accent);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
     animation: pulse 2s infinite;
   }
-  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
 
+  /* HERO CARD */
   .hero {
     width: calc(100% - 32px);
     max-width: 388px;
-    background: linear-gradient(135deg, #ffffff 0%, #fbe9da 100%);
+    background: linear-gradient(135deg, #1a2540 0%, #0f1829 100%);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 20px;
@@ -61,64 +78,99 @@
   }
   .hero::before {
     content: '';
-    position: absolute; top: -40px; left: -40px;
+    position: absolute;
+    top: -40px; left: -40px;
     width: 160px; height: 160px;
     background: radial-gradient(circle, rgba(124,106,247,0.15) 0%, transparent 70%);
     pointer-events: none;
   }
-  .hero-greeting { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-  .hero-name { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+  .hero-greeting {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .hero-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
   .hero-name span { color: var(--accent); }
 
-  .balance-row { display: flex; justify-content: space-between; align-items: flex-end; }
+  .balance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
   .balance-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
   .balance-amount { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .balance-currency { font-size: 14px; color: var(--muted); margin-right: 4px; }
 
-  .budget-bar-wrap { margin-top: 16px; }
-  .budget-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-  .budget-bar { height: 6px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
+  .budget-bar-wrap {
+    margin-top: 16px;
+  }
+  .budget-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .budget-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    overflow: hidden;
+  }
   .budget-fill {
-    height: 100%; width: 0%; border-radius: 99px;
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
     background: linear-gradient(90deg, var(--accent2), var(--accent));
     transition: width 1.2s cubic-bezier(.4,0,.2,1);
   }
 
+  /* ALERT CARD */
   .alert-card {
-    width: calc(100% - 32px); max-width: 388px;
+    width: calc(100% - 32px);
+    max-width: 388px;
     background: rgba(201,98,42,0.1);
     border: 1px solid rgba(201,98,42,0.3);
-    border-radius: 14px; padding: 12px 16px; margin-bottom: 12px;
-    display: flex; align-items: flex-start; gap: 10px;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     animation: slideIn 0.5s ease 0.8s both;
   }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .alert-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
   .alert-text { font-size: 13px; line-height: 1.6; }
   .alert-text strong { color: var(--accent); }
 
-  .discovery-card {
+  /* STATS ROW */
+  .stats-row {
     width: calc(100% - 32px);
     max-width: 388px;
-    background: linear-gradient(135deg, rgba(34,197,94,0.16), rgba(34,197,94,0.06));
-    border: 1px solid rgba(34,197,94,0.35);
-    border-radius: 16px;
-    padding: 16px;
-    margin: 8px 0 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: slideIn 0.5s ease 0.65s both;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
   }
-  .discovery-icon { flex-shrink: 0; color: var(--green); display: flex; align-items: center; }
-  .discovery-text { font-size: 13px; line-height: 1.7; }
-  .discovery-text .big { font-size: 15px; font-weight: 700; color: var(--green); }
-
-  .stats-row {
-    width: calc(100% - 32px); max-width: 388px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    animation: slideIn 0.5s ease both;
   }
-  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; animation: slideIn 0.5s ease both; }
   .stat-card:nth-child(1) { animation-delay: 0.3s; }
   .stat-card:nth-child(2) { animation-delay: 0.45s; }
   .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
@@ -127,157 +179,244 @@
   .stat-value.down { color: var(--green); }
   .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
+  /* CHAT SECTION */
   .chat-section {
-    width: calc(100% - 32px); max-width: 388px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; overflow: hidden;
-    margin: 8px 0 12px;
-    animation: slideIn 0.5s ease 0.2s both;
+    width: calc(100% - 32px);
+    max-width: 388px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 80px;
+    animation: slideIn 0.5s ease 0.6s both;
   }
-  .chat-header { padding: 14px 16px; background: var(--card2); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .chat-header {
+    padding: 14px 16px;
+    background: var(--card2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   .chat-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
+    width: 36px; height: 36px;
+    border-radius: 50%;
     background: linear-gradient(135deg, var(--accent2), var(--accent));
-    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
   }
   .chat-title { font-size: 14px; font-weight: 600; }
   .chat-status { font-size: 11px; color: var(--green); }
 
-  .chat-messages { padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 320px; max-height: 420px; overflow-y: auto; }
+  .chat-messages {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+    max-height: 320px;
+    overflow-y: auto;
+  }
   .chat-messages::-webkit-scrollbar { width: 4px; }
   .chat-messages::-webkit-scrollbar-track { background: transparent; }
   .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
-  .msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.6; animation: msgIn 0.3s ease both; }
-  @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .msg.bot { background: var(--card2); border: 1px solid var(--border); border-bottom-right-radius: 4px; align-self: flex-start; }
-  .msg.user { background: linear-gradient(135deg, var(--accent2), #6f5fc4); color: #ffffff; align-self: flex-end; border-bottom-left-radius: 4px; }
-  .msg.urgent { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.35); border-bottom-right-radius: 4px; align-self: flex-start; }
-  .msg.forecast { background: rgba(124,106,247,0.1); border: 1px solid rgba(124,106,247,0.3); border-bottom-right-radius: 4px; align-self: flex-start; }
-  .msg-action-btn.urgent-btn { background: linear-gradient(135deg, #ef4444, #c0392b); }
+  .msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    animation: msgIn 0.3s ease both;
+  }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .msg.bot {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-bottom-right-radius: 4px;
+    align-self: flex-start;
+  }
+  .msg.user {
+    background: linear-gradient(135deg, var(--accent2), #5a4fd4);
+    align-self: flex-end;
+    border-bottom-left-radius: 4px;
+  }
   .msg .highlight { color: var(--accent); font-weight: 600; }
   .msg .good { color: var(--green); font-weight: 600; }
 
-  .icon-inline { width: 15px; height: 15px; vertical-align: -3px; margin-left: 2px; }
-  .icon-md { width: 20px; height: 20px; }
-  .icon-lg { width: 26px; height: 26px; }
-
   .typing {
-    display: flex; gap: 4px; align-items: center; padding: 12px 14px;
-    background: var(--card2); border: 1px solid var(--border);
-    border-radius: 16px; border-bottom-right-radius: 4px; width: fit-content; align-self: flex-start;
+    display: flex; gap: 4px; align-items: center;
+    padding: 12px 14px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    border-bottom-right-radius: 4px;
+    width: fit-content;
+    align-self: flex-start;
   }
-  .typing span { width: 6px; height: 6px; background: var(--muted); border-radius: 50%; animation: bounce 1.2s infinite; }
+  .typing span {
+    width: 6px; height: 6px;
+    background: var(--muted);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
   .typing span:nth-child(2) { animation-delay: 0.2s; }
   .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+  @keyframes bounce {
+    0%,60%,100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
 
-  .quick-replies { padding: 10px 16px; display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--border); }
+  /* QUICK REPLIES */
+  .quick-replies {
+    padding: 10px 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+  }
   .quick-btn {
-    background: var(--card2); border: 1px solid var(--border); color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 12px; padding: 7px 12px;
-    border-radius: 99px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-  }
-  .quick-btn:hover { background: var(--accent); border-color: var(--accent); }
-
-  .msg-action-btn {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border: none;
-    color: white;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
     font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 10px;
+    font-size: 12px;
+    padding: 7px 12px;
+    border-radius: 99px;
     cursor: pointer;
-    transition: transform 0.15s, opacity 0.2s;
+    transition: all 0.2s;
+    white-space: nowrap;
   }
-  .msg-action-btn:hover { transform: scale(1.02); }
-  .msg-action-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+  .quick-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
 
-  .chat-input { padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid var(--border); }
+  /* INPUT */
+  .chat-input {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+  }
   .chat-input input {
-    flex: 1; background: var(--card2); border: 1px solid var(--border); border-radius: 99px;
-    padding: 10px 16px; color: var(--text); font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 13px; outline: none; transition: border-color 0.2s; text-align: right;
+    flex: 1;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 10px 16px;
+    color: var(--text);
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: right;
   }
   .chat-input input:focus { border-color: var(--accent2); }
   .chat-input input::placeholder { color: var(--muted); }
   .send-btn {
-    width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; transition: transform 0.2s, opacity 0.2s; flex-shrink: 0;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: transform 0.2s, opacity 0.2s;
+    flex-shrink: 0;
   }
   .send-btn:hover { transform: scale(1.08); }
   .send-btn:active { transform: scale(0.95); }
 
+  /* PANEL CARDS (subscriptions + savings goal) */
   .panel-card {
-    width: calc(100% - 32px); max-width: 388px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; padding: 16px; margin-bottom: 12px; animation: slideIn 0.5s ease both;
+    width: calc(100% - 32px);
+    max-width: 388px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 12px;
+    animation: slideIn 0.5s ease both;
   }
-  .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
   .panel-title { font-size: 14px; font-weight: 700; }
   .panel-badge {
-    font-size: 11px; background: rgba(34,197,94,0.12); color: var(--green);
-    padding: 4px 10px; border-radius: 99px; font-weight: 600; transition: all 0.3s;
+    font-size: 11px;
+    background: rgba(34,197,94,0.12);
+    color: var(--green);
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-weight: 600;
+    transition: all 0.3s;
   }
 
-  .sub-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); }
+  .sub-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+  }
   .sub-item:first-of-type { border-top: none; }
   .sub-info { flex: 1; min-width: 0; }
   .sub-name { font-size: 13px; font-weight: 600; }
   .sub-name.cancelled { text-decoration: line-through; color: var(--muted); }
   .sub-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .sub-status { font-size: 10px; padding: 3px 8px; border-radius: 99px; white-space: nowrap; flex-shrink: 0; }
+  .sub-status {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .sub-status.unused { background: rgba(239,68,68,0.12); color: var(--red); }
   .sub-status.low { background: rgba(201,98,42,0.15); color: var(--accent); }
   .sub-status.active { background: rgba(34,197,94,0.12); color: var(--green); }
   .sub-cancel {
-    font-size: 11px; background: var(--card2); border: 1px solid var(--border); color: var(--text);
-    padding: 5px 10px; border-radius: 99px; cursor: pointer; flex-shrink: 0;
-    font-family: 'IBM Plex Sans Arabic', sans-serif; transition: all 0.2s;
+    font-size: 11px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 5px 10px;
+    border-radius: 99px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    transition: all 0.2s;
   }
   .sub-cancel:hover { background: var(--red); border-color: var(--red); }
-  .sub-cancel:disabled { opacity: 0.5; cursor: default; background: var(--card2); }
+  .sub-cancel:disabled {
+    opacity: 0.5;
+    cursor: default;
+    background: var(--card2);
+  }
 
   .goal-form { display: flex; flex-direction: column; gap: 8px; }
   .goal-form input {
-    background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 9px 12px; color: var(--text); font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 13px; outline: none; text-align: right; width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 12px;
+    color: var(--text);
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 13px;
+    outline: none;
+    text-align: right;
+    width: 100%;
   }
   .goal-form input:focus { border-color: var(--accent2); }
   .goal-row { display: flex; gap: 8px; }
   .goal-btn {
-    background: linear-gradient(135deg, var(--accent2), var(--accent)); border: none; color: white;
-    font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 13px; font-weight: 600;
-    padding: 10px; border-radius: 10px; cursor: pointer; margin-top: 2px; transition: transform 0.15s;
-  }
-  .goal-btn:hover { transform: scale(1.01); }
-  .goal-result { margin-top: 12px; padding: 12px; border-radius: 12px; font-size: 12.5px; line-height: 1.7; animation: slideIn 0.4s ease both; }
-  .goal-result.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
-  .goal-result.warn { background: rgba(201,98,42,0.1); border: 1px solid rgba(201,98,42,0.3); }
-  .goal-result b { color: var(--text); }
-
-  .sms-form { display: flex; flex-direction: column; gap: 8px; }
-  .sms-form textarea {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 12.5px;
-    outline: none;
-    text-align: right;
-    direction: rtl;
-    resize: none;
-    min-height: 70px;
-    line-height: 1.6;
-  }
-  .sms-form textarea:focus { border-color: var(--accent2); }
-  .sms-form textarea::placeholder { color: var(--muted); }
-  .sms-btn {
     background: linear-gradient(135deg, var(--accent2), var(--accent));
     border: none;
     color: white;
@@ -287,195 +426,308 @@
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.15s, opacity 0.2s;
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px;
+    margin-top: 2px;
+    transition: transform 0.15s;
   }
-  .sms-btn:hover { transform: scale(1.01); }
-  .sms-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
-  .sms-spinner {
-    width: 13px; height: 13px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
-  }
-  .sms-result {
+  .goal-btn:hover { transform: scale(1.01); }
+  .goal-result {
     margin-top: 12px;
     padding: 12px;
     border-radius: 12px;
-    background: rgba(124,106,247,0.1);
-    border: 1px solid rgba(124,106,247,0.3);
-    display: none;
+    font-size: 12.5px;
+    line-height: 1.7;
     animation: slideIn 0.4s ease both;
   }
-  .sms-result-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12.5px;
-    padding: 5px 0;
-    border-top: 1px solid var(--border);
-  }
-  .sms-result-row:first-child { border-top: none; }
-  .sms-result-row .label { color: var(--muted); }
-  .sms-result-row .value { font-weight: 600; }
-  .sms-error {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--red);
-    display: none;
-  }
+  .goal-result.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
+  .goal-result.warn { background: rgba(201,98,42,0.1); border: 1px solid rgba(201,98,42,0.3); }
+  .goal-result b { color: var(--text); }
 
-  #loginScreen {
-    position: fixed; inset: 0; background: var(--bg);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    z-index: 200; padding: 24px;
-  }
-  .login-logo-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 32px; }
-  .login-icon {
-    width: 56px; height: 56px; border-radius: 16px;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    display: flex; align-items: center; justify-content: center; font-size: 26px;
-    box-shadow: 0 8px 24px rgba(124,106,247,0.25);
-  }
-  .login-logo { font-size: 20px; font-weight: 700; }
-  .login-logo span { color: var(--accent); }
-  .login-sub { font-size: 12px; color: var(--muted); }
-
-  .login-card {
-    width: 100%; max-width: 340px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 22px 20px; animation: slideIn 0.5s ease both;
-  }
-  .login-field { margin-bottom: 14px; }
-  .login-field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-  .login-field input {
-    width: 100%; background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 14px; color: var(--text); font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 14px; outline: none; text-align: right; transition: border-color 0.2s; direction: rtl;
-  }
-  .login-field input:focus { border-color: var(--accent2); }
-  .login-field input::placeholder { color: var(--muted); }
-
-  .login-error {
-    display: none; font-size: 12px; color: var(--red);
-    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
-    border-radius: 10px; padding: 8px 12px; margin-bottom: 14px; line-height: 1.6;
-  }
-
-  .login-btn {
-    width: 100%; background: linear-gradient(135deg, var(--accent2), var(--accent)); border: none; color: white;
-    font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 14px; font-weight: 600;
-    padding: 13px; border-radius: 12px; cursor: pointer; transition: transform 0.15s, opacity 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .login-btn:hover { transform: scale(1.01); }
-  .login-btn:active { transform: scale(0.98); }
-  .login-btn:disabled { opacity: 0.7; cursor: default; transform: none; }
-
-  .login-spinner {
-    width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white;
-    border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .login-hint { text-align: center; font-size: 11px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
-  .login-hint b { color: var(--text); }
 
   #loading {
-    position: fixed; inset: 0; background: var(--bg); display: none; flex-direction: column;
-    align-items: center; justify-content: center; gap: 16px; z-index: 100; transition: opacity 0.5s;
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    z-index: 100;
+    transition: opacity 0.5s;
   }
   .loading-logo { font-size: 32px; font-weight: 700; }
   .loading-logo span { color: var(--accent); }
-  .loading-bar { width: 120px; height: 3px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
-  .loading-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 99px; animation: load 1.5s ease forwards; }
-  @keyframes load { from { width: 0%; } to { width: 100%; } }
+  .loading-bar {
+    width: 120px; height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .loading-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 99px;
+    animation: load 1.5s ease forwards;
+  }
+  @keyframes load {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
 
-  .view { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 90px; }
+  /* ── LOCKSCREEN + WHATSAPP NOTIFICATION INTRO ── */
+  #lockscreen {
+    position: fixed; inset: 0;
+    z-index: 500;
+    background:
+      radial-gradient(circle at 50% 15%, rgba(124,106,247,0.18) 0%, transparent 45%),
+      linear-gradient(180deg, #0d1326 0%, #060810 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+    transition: opacity 0.5s ease, visibility 0.5s;
+  }
+  #lockscreen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .lock-time {
+    font-size: 68px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .lock-date {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .lock-hint {
+    margin-top: auto;
+    margin-bottom: 34px;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.7;
+  }
 
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 420px; background: var(--card); border-top: 1px solid var(--border);
-    display: none; z-index: 50; padding-bottom: env(safe-area-inset-bottom, 0);
+  .wa-notif {
+    width: calc(100% - 32px);
+    max-width: 388px;
+    margin-top: 46px;
+    background: rgba(26,34,53,0.92);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 18px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(-30px) scale(0.96);
+    cursor: pointer;
   }
-  .nav-item {
-    flex: 1; background: none; border: none; display: flex; flex-direction: column; align-items: center;
-    gap: 3px; padding: 10px 0 8px; color: var(--muted); font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 10px; cursor: pointer; transition: color 0.2s;
+  .wa-notif.show {
+    animation: notifDrop 0.6s cubic-bezier(.2,.9,.3,1.3) forwards, notifBuzz 0.5s ease 0.7s;
   }
-  .nav-item .nav-icon { font-size: 18px; }
-  .nav-item.active { color: var(--accent); }
+  @keyframes notifDrop {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes notifBuzz {
+    0%,100% { transform: translateY(0) rotate(0); }
+    20% { transform: translateY(0) rotate(-1deg); }
+    40% { transform: translateY(0) rotate(1deg); }
+    60% { transform: translateY(0) rotate(-1deg); }
+    80% { transform: translateY(0) rotate(0.5deg); }
+  }
+  .wa-notif-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #25D366, #128C4E);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .wa-notif-body { flex: 1; min-width: 0; }
+  .wa-notif-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+  .wa-notif-app {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .wa-notif-time { font-size: 10.5px; color: var(--muted); }
+  .wa-notif-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .wa-notif-text {
+    font-size: 12.5px;
+    color: #d3dae8;
+    line-height: 1.5;
+  }
+  .wa-notif-text strong { color: var(--accent); }
 
-  .settings-profile {
-    width: calc(100% - 32px); max-width: 388px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 24px 20px; margin: 8px 0 12px; text-align: center; animation: slideIn 0.5s ease both;
+  /* ── MINI WEEK CHART INSIDE CHAT ── */
+  .week-chart {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px 10px;
+    align-self: flex-start;
+    max-width: 90%;
+    animation: msgIn 0.3s ease both;
   }
-  .settings-avatar {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700;
-    color: white; margin: 0 auto 12px;
+  .week-chart-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
-  .settings-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-  .settings-id { font-size: 12px; color: var(--muted); }
+  .week-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    height: 64px;
+  }
+  .week-chart-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    gap: 4px;
+  }
+  .week-chart-bar {
+    width: 100%;
+    max-width: 18px;
+    border-radius: 4px;
+    background: var(--accent2);
+    opacity: 0.55;
+    height: 0%;
+    transition: height 0.7s cubic-bezier(.2,.8,.3,1);
+  }
+  .week-chart-bar.flag { background: var(--accent); opacity: 1; }
+  .week-chart-day { font-size: 9.5px; color: var(--muted); }
+  .week-chart-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
 
-  .settings-list {
-    width: calc(100% - 32px); max-width: 388px; background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; overflow: hidden; margin-bottom: 12px; animation: slideIn 0.5s ease 0.1s both;
+  /* ── INVOICE ATTACH ── */
+  .attach-btn {
+    width: 38px; height: 38px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, border-color 0.2s;
   }
-  .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-top: 1px solid var(--border); font-size: 13px; }
-  .settings-row:first-child { border-top: none; }
-  .settings-row .label { color: var(--muted); }
-  .settings-row .value { font-weight: 600; }
+  .attach-btn:hover { border-color: var(--accent2); transform: scale(1.06); }
 
-  .settings-btn {
-    width: calc(100% - 32px); max-width: 388px; padding: 13px; border-radius: 12px;
-    font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 13px; font-weight: 600;
-    cursor: pointer; margin-bottom: 10px; transition: transform 0.15s;
+  .msg.user img {
+    display: block;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 6px;
   }
-  .settings-btn:hover { transform: scale(1.01); }
-  .settings-btn.secondary { background: var(--card2); border: 1px solid var(--border); color: var(--text); }
-  .settings-btn.danger { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); color: var(--red); }
+  .msg-caption { font-size: 11px; opacity: 0.85; }
+
+  .invoice-parsed {
+    background: var(--card2);
+    border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 14px;
+    padding: 12px 14px;
+    align-self: flex-start;
+    max-width: 90%;
+    font-size: 12.5px;
+    line-height: 1.7;
+    animation: msgIn 0.3s ease both;
+  }
+  .invoice-parsed .ip-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .invoice-parsed .ip-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    border-top: 1px solid var(--border);
+  }
+  .invoice-parsed .ip-row:first-of-type { border-top: none; }
+  .invoice-parsed .ip-label { color: var(--muted); }
+  .invoice-parsed .ip-value { font-weight: 600; }
+
+  .wa-hint {
+    width: calc(100% - 32px);
+    max-width: 388px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    margin: -8px 0 90px;
+    line-height: 1.6;
+  }
+  .wa-hint-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #25D366;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px #25D366;
+  }
+
+  .live-note {
+    margin: 4px 16px 14px;
+    padding: 12px 14px;
+    background: rgba(124,106,247,0.1);
+    border: 1px solid rgba(124,106,247,0.3);
+    border-radius: 12px;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #cdd4ee;
+  }
 </style>
 </head>
 <body>
 
-<div id="loginScreen">
-  <div class="login-logo-wrap">
-    <div class="login-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 21 8 3 8"/></svg></div>
-    <div class="login-logo"><span>حاسب</span></div>
-    <div class="login-sub">مصرف الإنماء</div>
-    <div class="login-sub" style="margin-top:2px; color:var(--green); display:flex; align-items:center; justify-content:center; gap:4px;"><svg class="icon-inline" style="margin:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> يلقط اشتراكاتك المنسية قبل لا تنساها</div>
+<!-- LOCKSCREEN + WHATSAPP NOTIFICATION INTRO -->
+<div id="lockscreen">
+  <div class="lock-time" id="lockTime">3:41</div>
+  <div class="lock-date">الجمعة، 17 يوليو</div>
+
+  <div class="wa-notif" id="waNotif" onclick="openApp()">
+    <div class="wa-notif-icon">💬</div>
+    <div class="wa-notif-body">
+      <div class="wa-notif-top">
+        <span class="wa-notif-app">WhatsApp</span>
+        <span class="wa-notif-time">الآن</span>
+      </div>
+      <div class="wa-notif-title">لمّاح · بنك الإنماء</div>
+      <div class="wa-notif-text">صرفت <strong>340 ر.س</strong> على مطعم اليوم — أعلى من معدلك الأسبوعي بـ 3 أضعاف. اضغط لتشوف التفاصيل 👀</div>
+    </div>
   </div>
 
-  <div class="login-card">
-    <div class="login-error" id="loginError"></div>
-    <form id="loginForm" onsubmit="handleLogin(event)">
-      <div class="login-field">
-        <label for="loginId">رقم الهوية / اسم المستخدم</label>
-        <input type="text" id="loginId" placeholder="أدخل رقم الهوية" autocomplete="username" required>
-      </div>
-      <div class="login-field">
-        <label for="loginPass">كلمة المرور</label>
-        <input type="password" id="loginPass" placeholder="أدخل كلمة المرور" autocomplete="current-password" required>
-      </div>
-      <button type="submit" class="login-btn" id="loginBtn">
-        <span class="login-spinner" id="loginSpinner"></span>
-        <span id="loginBtnText">تسجيل الدخول</span>
-      </button>
-    </form>
-    <div class="login-hint">للتجربة، استخدم:<br>رقم الهوية <b>1029384756</b> — كلمة المرور <b>amad2026</b></div>
-  </div>
+  <div class="lock-hint">اضغط على الإشعار للمتابعة</div>
 </div>
 
+<!-- LOADING -->
 <div id="loading">
-  <div class="loading-logo"><span>حاسب</span></div>
+  <div class="loading-logo">مساعد <span>امد</span></div>
   <div class="loading-bar"><div class="loading-fill"></div></div>
 </div>
 
-<div id="app" style="display:none; width:100%; flex-direction:column; align-items:center;">
-
+<!-- TOP BAR -->
 <div class="topbar">
   <span class="logo">مصرف الإنماء</span>
   <div class="brand">
@@ -484,526 +736,260 @@
   </div>
 </div>
 
-<div id="view-home" class="view" style="display:none">
-
-  <div class="hero">
-    <div class="hero-greeting">مرحباً بك،</div>
-    <div class="hero-name">فهد <span>العتيبي</span></div>
-    <div class="balance-row">
-      <div>
-        <div class="balance-label">الرصيد المتاح</div>
-        <div class="balance-amount"><span class="balance-currency">ر.س</span>3,240</div>
-      </div>
-      <div style="text-align:left">
-        <div class="balance-label">الراتب الشهري</div>
-        <div style="font-size:16px; font-weight:600; color:var(--muted)">8,000 ر.س</div>
-      </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-greeting">مرحباً بك،</div>
+  <div class="hero-name">فهد <span>العتيبي</span> 👋</div>
+  <div class="balance-row">
+    <div>
+      <div class="balance-label">الرصيد المتاح</div>
+      <div class="balance-amount"><span class="balance-currency">ر.س</span>3,240</div>
     </div>
-    <div class="budget-bar-wrap">
-      <div class="budget-row">
-        <span>المصروف هذا الشهر</span>
-        <span id="pct">59%</span>
-      </div>
-      <div class="budget-bar">
-        <div class="budget-fill" id="budgetFill"></div>
-      </div>
+    <div style="text-align:left">
+      <div class="balance-label">الراتب الشهري</div>
+      <div style="font-size:16px; font-weight:600; color:var(--muted)">8,000 ر.س</div>
     </div>
   </div>
-
-  <div class="discovery-card">
-    <div class="discovery-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-    <div class="discovery-text">
-      اكتشفنا لك <span class="big">273 ر.س/شهر</span> بمصاريف اشتراكات منسية —
-      يعني تقريباً <span class="big">3,276 ر.س</span> لو استمرت طول السنة!
+  <div class="budget-bar-wrap">
+    <div class="budget-row">
+      <span>المصروف هذا الشهر</span>
+      <span id="pct">59%</span>
     </div>
-  </div>
-
-  <div class="panel-card">
-    <div class="panel-header">
-      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> تدقيق الاشتراكات</span>
-      <span class="panel-badge" id="subsSavings">وفّر حتى 273 ر.س/شهر</span>
-    </div>
-    <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
-      <span style="background:rgba(124,106,247,0.15); color:var(--accent2); padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:700; flex-shrink:0; display:inline-flex; align-items:center; gap:3px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Agentic AI</span>
-      <span style="font-size:11px; color:var(--muted);">ما يقترح بس — اضغطي "إلغاء" وشوفي كيف ينفذها فعلياً</span>
-    </div>
-
-    <div class="sub-item">
-      <div class="sub-info">
-        <div class="sub-name" id="subName-netflix">نتفليكس</div>
-        <div class="sub-meta">45 ر.س/شهر  ·  آخر استخدام: منذ 62 يوم</div>
-      </div>
-      <div class="sub-status unused" id="subStatus-netflix">غير مستخدم</div>
-      <button class="sub-cancel" id="subBtn-netflix" onclick="cancelSub('netflix', 45, this)">إلغاء</button>
-    </div>
-
-    <div class="sub-item">
-      <div class="sub-info">
-        <div class="sub-name">سبوتيفاي</div>
-        <div class="sub-meta">20 ر.س/شهر  ·  آخر استخدام: اليوم</div>
-      </div>
-      <div class="sub-status active">نشط</div>
-    </div>
-
-    <div class="sub-item">
-      <div class="sub-info">
-        <div class="sub-name" id="subName-gym">نادي فيتنس تايم</div>
-        <div class="sub-meta">199 ر.س/شهر  ·  آخر استخدام: منذ 18 يوم</div>
-      </div>
-      <div class="sub-status low" id="subStatus-gym">استخدام منخفض</div>
-      <button class="sub-cancel" id="subBtn-gym" onclick="cancelSub('gym', 199, this)">إلغاء</button>
-    </div>
-
-    <div class="sub-item">
-      <div class="sub-info">
-        <div class="sub-name">آبل آيكلاود+</div>
-        <div class="sub-meta">35 ر.س/شهر  ·  آخر استخدام: اليوم</div>
-      </div>
-      <div class="sub-status active">نشط</div>
-    </div>
-
-    <div class="sub-item">
-      <div class="sub-info">
-        <div class="sub-name" id="subName-yoga">تطبيق تأمل ويوغا</div>
-        <div class="sub-meta">29 ر.س/شهر  ·  آخر استخدام: منذ 47 يوم</div>
-      </div>
-      <div class="sub-status unused" id="subStatus-yoga">غير مستخدم</div>
-      <button class="sub-cancel" id="subBtn-yoga" onclick="cancelSub('yoga', 29, this)">إلغاء</button>
-    </div>
-  </div>
-
-  <div class="alert-card">
-    <div class="alert-icon" style="color:var(--accent); display:flex; align-items:center;"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-    <div class="alert-text">
-      صرفت <strong>4,760 ر.س</strong> من راتبك في أول 3 أسابيع.
-      إذا كملت بنفس الوتيرة، <strong>الراتب يخلص قبل نهاية الشهر بـ 6 أيام</strong>.
-    </div>
-  </div>
-
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">أعلى مصروف</div>
-      <div class="stat-value up">1,200 ر.س</div>
-      <div class="stat-sub" style="display:flex; align-items:center; gap:4px;">مطاعم وكافيهات <svg class="icon-inline" style="margin:0; color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">وفرت هذا الشهر</div>
-      <div class="stat-value down">340 ر.س</div>
-      <div class="stat-sub" style="display:flex; align-items:center; gap:4px;">مقارنة بالشهر الماضي <svg class="icon-inline" style="margin:0; color:var(--green);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>
-    </div>
-  </div>
-
-  <div class="panel-card">
-    <div class="panel-header">
-      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> هدف الادخار</span>
-    </div>
-    <div class="goal-form">
-      <input type="text" id="goalName" placeholder="اسم الهدف (مثال: رحلة، جوال جديد)">
-      <div class="goal-row">
-        <input type="number" id="goalAmount" placeholder="المبلغ ر.س">
-        <input type="number" id="goalWeeks" placeholder="عدد الأسابيع">
-      </div>
-      <button class="goal-btn" onclick="calcGoal()">احسب خطة التوفير</button>
-    </div>
-    <div class="goal-result" id="goalResult" style="display:none"></div>
-  </div>
-
-  <div class="panel-card">
-    <div class="panel-header">
-      <span class="panel-title"><svg class="icon-inline" style="color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg> جرّب على رسالة بنكية حقيقية</span>
-    </div>
-    <div style="font-size:11.5px; color:var(--muted); margin-bottom:10px; line-height:1.6;">
-      الصق رسالة SMS وصلتك من أي بنك (مثال: "تم خصم 85.50 ريال من حسابك لدى XX في متجر ستاربكس") وشوف كيف "حساب" يفهمها ويصنفها تلقائياً — بدون أي ربط API.
-    </div>
-    <div class="sms-form">
-      <textarea id="smsInput" placeholder="مثال: تم خصم مبلغ 120.00 ريال من حسابك لدى مصرف الإنماء في نون - Noon بتاريخ 12/07"></textarea>
-      <button class="sms-btn" id="smsBtn" onclick="parseSms()">
-        <span class="sms-spinner" id="smsSpinner"></span>
-        <span id="smsBtnText">حلّل الرسالة</span>
-      </button>
-    </div>
-    <div class="sms-error" id="smsError"></div>
-    <div class="sms-result" id="smsResult"></div>
-  </div>
-
-</div>
-
-<div id="view-chat" class="view">
-  <div class="chat-section" style="margin-top:8px">
-    <div class="chat-header">
-      <div class="chat-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="11"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></div>
-      <div>
-        <div class="chat-title">مساعدك المالي الذكي</div>
-        <div class="chat-status">● متصل الآن</div>
-      </div>
-    </div>
-
-    <div class="chat-messages" id="messages">
-      <div class="msg bot">
-        فهد! 👋 لقيت لك اشتراك <b>نتفليكس</b> كان منسي له شهرين تقريباً وغير فعال — لو تبي، أقدر ألغيه الحين ووفر لك <b>45 ر.س/شهر</b> (يعني حوالي <b>540 ر.س</b> بالسنة) 💰
-        <div style="margin-top:10px;">
-          <button class="msg-action-btn" id="chatCancelNetflix" onclick="chatCancelSub('netflix', 45, this)">✅ ألغِ الاشتراك الآن</button>
-        </div>
-      </div>
-      <div class="msg forecast">
-        🌦️ <b>نشرة حساب الأسبوعية:</b> الأسبوع الجاي فيه راتبك الجديد وبيصادف قرب مناسبة — تاريخياً تصرف وقتها أكثر بحوالي 40%. أبي أجهز لك خطة احتياطية مسبقة عشان ما يفاجئك الوضع؟
-        <div style="margin-top:10px;">
-          <button class="msg-action-btn" onclick="prepareForecastPlan(this)">📋 جهّز الخطة الاحتياطية</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="quick-replies">
-      <button class="quick-btn" onclick="sendQuick('وريني باقي الاشتراكات المنسية')">وريني باقي الاشتراكات</button>
-      <button class="quick-btn" onclick="triggerEmergencyMode()">🚨 جرب وضع الطوارئ</button>
-      <button class="quick-btn" onclick="sendQuick('ساعدني أحقق هدف الادخار')">ساعدني أحقق هدفي</button>
-    </div>
-
-    <div class="chat-input">
-      <button class="send-btn" onclick="sendMessage()">↑</button>
-      <input type="text" id="userInput" placeholder="اسألني عن مصاريفك..." onkeydown="if(event.key==='Enter')sendMessage()" />
+    <div class="budget-bar">
+      <div class="budget-fill" id="budgetFill"></div>
     </div>
   </div>
 </div>
 
-<div id="view-settings" class="view" style="display:none">
-
-  <div class="settings-profile">
-    <div class="settings-avatar">ف ع</div>
-    <div class="settings-name">فهد العتيبي</div>
-    <div class="settings-id" id="settingsIdLine">رقم الهوية: 1029384756</div>
+<!-- ALERT -->
+<div class="alert-card">
+  <div class="alert-icon">⚠️</div>
+  <div class="alert-text">
+    صرفت <strong>4,760 ر.س</strong> من راتبك في أول 3 أسابيع.
+    إذا كملت بنفس الوتيرة، <strong>الراتب يخلص قبل نهاية الشهر بـ 6 أيام</strong>.
   </div>
-
-  <div class="settings-list">
-    <div class="settings-row">
-      <span class="label">الراتب الشهري</span>
-      <span class="value">8,000 ر.س</span>
-    </div>
-    <div class="settings-row">
-      <span class="label">نوع الحساب</span>
-      <span class="value">حساب توفير</span>
-    </div>
-    <div class="settings-row">
-      <span class="label">تاريخ الانضمام</span>
-      <span class="value">يناير 2024</span>
-    </div>
-    <div class="settings-row">
-      <span class="label">الفرع</span>
-      <span class="value">الرياض - العليا</span>
-    </div>
-  </div>
-
-  <button class="settings-btn secondary" onclick="resetDemoData()">إعادة تعيين البيانات التجريبية</button>
-  <button class="settings-btn danger" onclick="logout()">تسجيل الخروج</button>
-
 </div>
 
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">أعلى مصروف</div>
+    <div class="stat-value up">1,200 ر.س</div>
+    <div class="stat-sub">مطاعم وكافيهات ☕</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">وفرت هذا الشهر</div>
+    <div class="stat-value down">340 ر.س</div>
+    <div class="stat-sub">مقارنة بالشهر الماضي 📉</div>
+  </div>
 </div>
 
-<div class="bottom-nav" id="bottomNav">
-  <button class="nav-item" data-view="home" onclick="switchView('home')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>الرئيسية</span></button>
-  <button class="nav-item active" data-view="chat" onclick="switchView('chat')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>المساعد</span></button>
-  <button class="nav-item" data-view="settings" onclick="switchView('settings')"><svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>الإعدادات</span></button>
+<!-- SUBSCRIPTIONS AUDIT -->
+<div class="panel-card">
+  <div class="panel-header">
+    <span class="panel-title">🔍 تدقيق الاشتراكات</span>
+    <span class="panel-badge" id="subsSavings">وفّر حتى 244 ر.س/شهر</span>
+  </div>
+
+  <div class="sub-item">
+    <div class="sub-info">
+      <div class="sub-name" id="subName-netflix">نتفليكس</div>
+      <div class="sub-meta">45 ر.س/شهر  ·  آخر استخدام: منذ 62 يوم</div>
+    </div>
+    <div class="sub-status unused" id="subStatus-netflix">غير مستخدم</div>
+    <button class="sub-cancel" id="subBtn-netflix" onclick="cancelSub('netflix', 45, this)">إلغاء</button>
+  </div>
+
+  <div class="sub-item">
+    <div class="sub-info">
+      <div class="sub-name">سبوتيفاي</div>
+      <div class="sub-meta">20 ر.س/شهر  ·  آخر استخدام: اليوم</div>
+    </div>
+    <div class="sub-status active">نشط</div>
+  </div>
+
+  <div class="sub-item">
+    <div class="sub-info">
+      <div class="sub-name" id="subName-gym">نادي فيتنس تايم</div>
+      <div class="sub-meta">199 ر.س/شهر  ·  آخر استخدام: منذ 18 يوم</div>
+    </div>
+    <div class="sub-status low" id="subStatus-gym">استخدام منخفض</div>
+    <button class="sub-cancel" id="subBtn-gym" onclick="cancelSub('gym', 199, this)">إلغاء</button>
+  </div>
+
+  <div class="sub-item">
+    <div class="sub-info">
+      <div class="sub-name">آبل آيكلاود+</div>
+      <div class="sub-meta">35 ر.س/شهر  ·  آخر استخدام: اليوم</div>
+    </div>
+    <div class="sub-status active">نشط</div>
+  </div>
+</div>
+
+<!-- SAVINGS GOAL -->
+<div class="panel-card">
+  <div class="panel-header">
+    <span class="panel-title">🎯 هدف الادخار</span>
+  </div>
+  <div class="goal-form">
+    <input type="text" id="goalName" placeholder="اسم الهدف (مثال: رحلة، جوال جديد)">
+    <div class="goal-row">
+      <input type="number" id="goalAmount" placeholder="المبلغ ر.س">
+      <input type="number" id="goalWeeks" placeholder="عدد الأسابيع">
+    </div>
+    <button class="goal-btn" onclick="calcGoal()">احسب خطة التوفير</button>
+  </div>
+  <div class="goal-result" id="goalResult" style="display:none"></div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-section">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div>
+      <div class="chat-title">مساعدك المالي الذكي</div>
+      <div class="chat-status">● متصل الآن</div>
+    </div>
+  </div>
+
+  <div class="chat-messages" id="messages"></div>
+
+  <div class="live-note">
+    💡 هذا السيناريو معروض هنا بشكل جاهز مسبقاً حتى يشتغل لأي شخص يفتح الرابط.
+    المحادثة الحرة مع الذكاء الاصطناعي وقراءة صور الفواتير تلقائياً متاحة في العرض المباشر.
+  </div>
+</div>
+
+<div class="wa-hint">
+  <span class="wa-hint-dot"></span>
+  بالنسخة الحقيقية، تقدر ترسل صورة فاتورتك بنفس الطريقة مباشرة على واتساب لمّاح — مو لازم تفتح أي تطبيق
 </div>
 
 <script>
-  // ⚠️ عدّلي هذا الرابط بعد ما تنشرين خادم hasib-proxy على Render (خطوات بالأسفل)
-  // مثال: 'https://hasib-proxy.onrender.com'
-  const CHAT_PROXY_URL = 'https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com';
 
-  const VALID_CREDENTIALS = { id: '1029384756', password: 'amad2026' };
-  const SUB_PRICES = { netflix: 45, gym: 199, yoga: 29 };
-
-  const LS_PREFIX = 'hasib_demo:';
-  const hasWindowStorage = () => typeof window.storage !== 'undefined' && window.storage !== null;
-
-  async function storageGet(key) {
-    if (hasWindowStorage()) {
-      try {
-        const res = await window.storage.get(key, false);
-        return res ? res.value : null;
-      } catch (e) { /* fall through to localStorage */ }
-    }
-    try {
-      return localStorage.getItem(LS_PREFIX + key);
-    } catch (e) { return null; }
+  // ── Lockscreen clock ──
+  function paintClock() {
+    const now = new Date();
+    let h = now.getHours() % 12; if (h === 0) h = 12;
+    const m = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('lockTime').textContent = `${h}:${m}`;
   }
-  async function storageSet(key, value) {
-    if (hasWindowStorage()) {
-      try { await window.storage.set(key, value, false); return; }
-      catch (e) { /* fall through to localStorage */ }
-    }
-    try { localStorage.setItem(LS_PREFIX + key, value); }
-    catch (e) { console.error('storage set failed', key, e); }
-  }
-  async function storageDelete(key) {
-    if (hasWindowStorage()) {
-      try { await window.storage.delete(key, false); return; }
-      catch (e) { /* fall through to localStorage */ }
-    }
-    try { localStorage.removeItem(LS_PREFIX + key); } catch (e) {}
+  paintClock();
+  setInterval(paintClock, 30000);
+
+  // Notification drops in shortly after the lockscreen appears
+  setTimeout(() => {
+    document.getElementById('waNotif').classList.add('show');
+  }, 900);
+
+  let appOpened = false;
+  function openApp() {
+    if (appOpened) return;
+    appOpened = true;
+    document.getElementById('lockscreen').classList.add('hidden');
+    startAppLoading();
   }
 
-  let monthlySavedFromSubs = 0;
-  const cancelledSubs = [];
-  const history = [];
-
-  window.addEventListener('DOMContentLoaded', init);
-
-  async function init() {
-    const session = await storageGet('session');
-    if (session) {
-      document.getElementById('loginScreen').style.display = 'none';
-      await startAppLoading();
-    }
-  }
-
-  async function handleLogin(e) {
-    e.preventDefault();
-    const id = document.getElementById('loginId').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
-    const errorBox = document.getElementById('loginError');
-    const btn = document.getElementById('loginBtn');
-    const btnText = document.getElementById('loginBtnText');
-    const spinner = document.getElementById('loginSpinner');
-
-    errorBox.style.display = 'none';
-
-    if (!id || !pass) {
-      errorBox.textContent = 'الرجاء تعبئة رقم الهوية وكلمة المرور.';
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    if (id !== VALID_CREDENTIALS.id || pass !== VALID_CREDENTIALS.password) {
-      errorBox.textContent = 'رقم الهوية أو كلمة المرور غير صحيحة. استخدم البيانات التجريبية الموضحة أدناه.';
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    btn.disabled = true;
-    spinner.style.display = 'inline-block';
-    btnText.textContent = 'جاري التحقق...';
-
-    await storageSet('session', JSON.stringify({ loggedIn: true, id, ts: Date.now() }));
-
-    setTimeout(() => {
-      const loginScreen = document.getElementById('loginScreen');
-      loginScreen.style.transition = 'opacity 0.4s';
-      loginScreen.style.opacity = '0';
-      setTimeout(() => {
-        loginScreen.style.display = 'none';
-        startAppLoading();
-      }, 400);
-    }, 900);
-  }
-
-  async function logout() {
-    await storageDelete('session');
-    location.reload();
-  }
-
-  async function resetDemoData() {
-    await storageDelete('cancelledSubs');
-    await storageDelete('savingsGoal');
-    await storageDelete('chatHistory');
-    location.reload();
-  }
-
-  async function startAppLoading() {
+  function startAppLoading() {
     const l = document.getElementById('loading');
     l.style.display = 'flex';
     l.style.opacity = '1';
-
-    await restoreState();
+    // restart the load-bar animation
+    const bar = l.querySelector('.loading-fill');
+    bar.style.animation = 'none';
+    void bar.offsetWidth;
+    bar.style.animation = 'load 1.1s ease forwards';
 
     setTimeout(() => {
       l.style.opacity = '0';
-      setTimeout(() => {
-        l.style.display = 'none';
-        document.getElementById('app').style.display = 'flex';
-        document.getElementById('bottomNav').style.display = 'flex';
-      }, 500);
+      setTimeout(() => { l.style.display = 'none'; }, 500);
+      // Animate budget bar
       setTimeout(() => {
         document.getElementById('budgetFill').style.width = '59%';
-      }, 600);
-    }, 1200);
+      }, 400);
+      // Kick off the scripted WhatsApp-style alert conversation
+      setTimeout(runIntroConversation, 700);
+    }, 1100);
   }
 
-  async function restoreState() {
-    const cancelledRaw = await storageGet('cancelledSubs');
-    if (cancelledRaw) {
-      try {
-        const arr = JSON.parse(cancelledRaw);
-        arr.forEach(id => {
-          if (SUB_PRICES[id] !== undefined && !cancelledSubs.includes(id)) {
-            markSubCancelledUI(id);
-            monthlySavedFromSubs += SUB_PRICES[id];
-            cancelledSubs.push(id);
-          }
-        });
-        updateSubsBadge();
-      } catch (e) {}
-    }
+  // ── Scripted intro conversation (mirrors the WhatsApp alert the user tapped) ──
+  const weekSpend = [
+    { day: 'سبت', amount: 65 },
+    { day: 'أحد', amount: 90 },
+    { day: 'اثن', amount: 70 },
+    { day: 'ثلا', amount: 110 },
+    { day: 'أرب', amount: 85 },
+    { day: 'خمي', amount: 120 },
+    { day: 'جمعة', amount: 340, flag: true },
+  ];
 
-    const goalRaw = await storageGet('savingsGoal');
-    if (goalRaw) {
-      try {
-        const g = JSON.parse(goalRaw);
-        if (g.name) document.getElementById('goalName').value = g.name;
-        if (g.amount) document.getElementById('goalAmount').value = g.amount;
-        if (g.weeks) document.getElementById('goalWeeks').value = g.weeks;
-        if (g.amount && g.weeks) calcGoal(false);
-      } catch (e) {}
-    }
-
-    const histRaw = await storageGet('chatHistory');
-    if (histRaw) {
-      try {
-        const arr = JSON.parse(histRaw);
-        arr.forEach(m => addMsg(m.content, m.role === 'user' ? 'user' : 'bot'));
-        history.push(...arr);
-      } catch (e) {}
-    }
-  }
-
-  function switchView(name) {
-    ['home', 'chat', 'settings'].forEach(v => {
-      document.getElementById(`view-${v}`).style.display = (v === name) ? 'flex' : 'none';
-    });
-    document.querySelectorAll('.nav-item').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.view === name);
+  function addChartBubble() {
+    const msgs = document.getElementById('messages');
+    const max = Math.max(...weekSpend.map(d => d.amount));
+    const wrap = document.createElement('div');
+    wrap.className = 'week-chart';
+    wrap.innerHTML = `
+      <div class="week-chart-title">📊 صرفك على المطاعم — آخر 7 أيام</div>
+      <div class="week-chart-bars">
+        ${weekSpend.map(d => `
+          <div class="week-chart-col">
+            <div class="week-chart-bar${d.flag ? ' flag' : ''}" data-h="${Math.round((d.amount / max) * 100)}"></div>
+            <div class="week-chart-day">${d.day}</div>
+          </div>`).join('')}
+      </div>
+      <div class="week-chart-sub">متوسطك الأسبوعي: 90 ر.س/يوم</div>
+    `;
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    requestAnimationFrame(() => {
+      wrap.querySelectorAll('.week-chart-bar').forEach(b => {
+        setTimeout(() => { b.style.height = b.dataset.h + '%'; }, 60);
+      });
     });
   }
 
-  function markSubCancelledUI(id) {
+  function runIntroConversation() {
+    document.getElementById('messages').innerHTML = '';
+    document.querySelector('.chat-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const typing1 = showTyping();
+    setTimeout(() => {
+      typing1.remove();
+      addMsg('لاحظت إنك صرفت <strong class="highlight">340 ر.س</strong> على مطعم اليوم — أعلى من معدلك الأسبوعي بمقدار 3 أضعاف تقريباً 👋', 'bot');
+      history.push({ role: 'assistant', content: 'لاحظت إنك صرفت 340 ريال على مطعم اليوم، أعلى من معدلك الأسبوعي بمقدار 3 أضعاف تقريباً.' });
+
+      setTimeout(() => {
+        addChartBubble();
+        const typing2 = showTyping();
+        setTimeout(() => {
+          typing2.remove();
+          addMsg('لو قللت صرف المطاعم للنص هالأسبوع، توفر تقريباً <strong class="good">210 ر.س</strong>. تحب أفعّل لك تنبيه لو تجاوزت حد يومي معيّن؟', 'bot');
+          history.push({ role: 'assistant', content: 'لو قللت صرف المطاعم للنص هالأسبوع، توفر تقريباً 210 ريال. تحب أفعّل لك تنبيه لو تجاوزت حد يومي معيّن؟' });
+        }, 1000);
+      }, 900);
+    }, 1100);
+  }
+
+  // ── Subscription audit ──
+  let monthlySavedFromSubs = 0;
+  const cancelledSubs = [];
+  function cancelSub(id, amount, btn) {
     const nameEl = document.getElementById(`subName-${id}`);
     const statusEl = document.getElementById(`subStatus-${id}`);
-    const btn = document.getElementById(`subBtn-${id}`);
     if (nameEl) nameEl.classList.add('cancelled');
     if (statusEl) { statusEl.textContent = 'ملغى'; statusEl.className = 'sub-status'; statusEl.style.background = 'rgba(122,138,170,0.15)'; statusEl.style.color = 'var(--muted)'; }
-    if (btn) { btn.textContent = '✓ تم الإلغاء'; btn.disabled = true; }
-    const chatBtn = document.getElementById(`chatCancel${id.charAt(0).toUpperCase()}${id.slice(1)}`);
-    if (chatBtn) { chatBtn.textContent = '✅ تم الإلغاء'; chatBtn.disabled = true; }
-  }
-
-  function updateSubsBadge() {
-    if (monthlySavedFromSubs > 0) {
-      const badge = document.getElementById('subsSavings');
-      badge.textContent = `وفّرت ${monthlySavedFromSubs} ر.س/شهر فعلياً`;
-      badge.style.background = 'rgba(34,197,94,0.22)';
-    }
-  }
-
-  const SUB_NAMES = { netflix: 'نتفليكس', gym: 'نادي فيتنس تايم', yoga: 'تطبيق تأمل ويوغا' };
-
-  async function cancelSub(id, amount, btn) {
-    markSubCancelledUI(id);
+    btn.textContent = '✓ تم الإلغاء';
+    btn.disabled = true;
     monthlySavedFromSubs += amount;
     cancelledSubs.push(id);
-    updateSubsBadge();
-    await storageSet('cancelledSubs', JSON.stringify(cancelledSubs));
-
-    // Narrate the action through the AI chat, wherever it was triggered from
-    const name = SUB_NAMES[id] || id;
-    const annual = amount * 12;
-    const confirmMsg = `تم! ✅ ألغيت اشتراك <b>${name}</b> ووفرت لك <b>${amount} ر.س/شهر</b> (يعني <b>${annual} ر.س</b> بالسنة). راجعي "الرئيسية" لو تبين تشوفين التفاصيل، أو قولي لي إذا تبين أراجع اشتراك ثاني.`;
-    addMsg(confirmMsg, 'bot');
-    history.push({ role: 'assistant', content: confirmMsg });
-    await storageSet('chatHistory', JSON.stringify(history));
-
-    // Agentic chaining: don't stop at one action, propose the natural next step
-    setTimeout(() => offerGoalChain(amount), 700);
+    const badge = document.getElementById('subsSavings');
+    badge.textContent = `وفّرت ${monthlySavedFromSubs} ر.س/شهر فعلياً`;
+    badge.style.background = 'rgba(34,197,94,0.22)';
   }
 
-  function chatCancelSub(id, amount, btn) {
-    btn.disabled = true;
-    cancelSub(id, amount, btn);
-  }
-
-  // ── Chaining: link freed-up money to a savings goal automatically ──
-  function offerGoalChain(amount) {
-    const nameField = document.getElementById('goalName');
-    const hasGoal = nameField.value.trim() !== '';
-    const chainMsg = hasGoal
-      ? `بما إنك وفرت ${amount} ر.س، أضيفها تلقائياً على هدف "${nameField.value.trim()}" وأسرّع لك الخطة؟`
-      : `بما إنك وفرت ${amount} ر.س، ما عندك هدف ادخار محدد بعد — أبي أسوي لك وحد تلقائياً (جوال جديد، 2000 ر.س خلال 12 أسبوع) وأضيف هذا التوفير له؟`;
-    const div = document.createElement('div');
-    div.className = 'msg forecast';
-    div.innerHTML = `${chainMsg}<div style="margin-top:10px;"><button class="msg-action-btn" onclick="chainToGoal(this)">🎯 ضيفها على هدفي</button></div>`;
-    document.getElementById('messages').appendChild(div);
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  }
-
-  function chainToGoal(btn) {
-    btn.disabled = true;
-    btn.textContent = '✅ تمت الإضافة';
-    const nameField = document.getElementById('goalName');
-    const amountField = document.getElementById('goalAmount');
-    const weeksField = document.getElementById('goalWeeks');
-    if (!nameField.value.trim()) {
-      nameField.value = 'جوال جديد';
-      amountField.value = 2000;
-      weeksField.value = 12;
-    }
-    calcGoal();
-    const resultBox = document.getElementById('goalResult');
-    const summary = resultBox ? resultBox.textContent.trim() : '';
-    addMsg(`تم تحديث خطة ادخارك ✅ ${summary}`, 'bot');
-    history.push({ role: 'assistant', content: `تم تحديث خطة ادخارك: ${summary}` });
-    storageSet('chatHistory', JSON.stringify(history));
-  }
-
-  // ── Financial weather forecast follow-up ──
-  function prepareForecastPlan(btn) {
-    btn.disabled = true;
-    btn.textContent = '✅ جاهزة';
-    const msg = `خطتك الاحتياطية جاهزة 📋: حاولي تحدّين مصاريف المطاعم بـ300 ر.س بدل 500 هالأسبوع، وخلي 100 ر.س جنب أول ما يوصل الراتب قبل لا تصرفينه. بذا تضمنين ما تدخلين منطقة الخطر آخر الشهر.`;
-    addMsg(msg, 'bot');
-    history.push({ role: 'assistant', content: msg });
-    storageSet('chatHistory', JSON.stringify(history));
-  }
-
-  // ── Emergency mode simulation ──
-  function triggerEmergencyMode() {
-    addMsg('🚨 جرب وضع الطوارئ', 'user');
-    const div = document.createElement('div');
-    div.className = 'msg urgent';
-    div.innerHTML = `⚠️ <b>تنبيه حرج:</b> لو رصيدك نزل لمنطقة الخطر (أقل من 10% من راتبك) قبل نهاية الشهر، حساب يتحول لوضع الطوارئ فوراً: يوقف كل الاشتراكات الغير ضرورية بضغطة وحدة، ويعطيك خطة نجاة لـ48 ساعة بدل النصائح العادية.
-      <div style="margin-top:10px;">
-        <button class="msg-action-btn urgent-btn" onclick="freezeAllSubs(this)">🚨 جمّد كل الاشتراكات غير الضرورية الآن</button>
-      </div>`;
-    document.getElementById('messages').appendChild(div);
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  }
-
-  async function freezeAllSubs(btn) {
-    btn.disabled = true;
-    btn.textContent = '⏳ جاري التجميد...';
-    let total = 0;
-    const frozen = [];
-    for (const id of Object.keys(SUB_PRICES)) {
-      if (!cancelledSubs.includes(id)) {
-        markSubCancelledUI(id);
-        monthlySavedFromSubs += SUB_PRICES[id];
-        cancelledSubs.push(id);
-        total += SUB_PRICES[id];
-        frozen.push(SUB_NAMES[id] || id);
-      }
-    }
-    updateSubsBadge();
-    await storageSet('cancelledSubs', JSON.stringify(cancelledSubs));
-    btn.textContent = '✅ تم التجميد';
-    const summary = frozen.length
-      ? `تم! ✅ جمّدت ${frozen.join('، ')} ووفرت لك <b>${total} ر.س/شهر</b> فوراً. رصيدك الحين بحال أفضل بكثير 💪`
-      : `كل اشتراكاتك مجمدة أو نشطة أصلاً، ما فيه شي إضافي أقدر أوقفه الحين.`;
-    addMsg(summary, 'bot');
-    history.push({ role: 'assistant', content: summary });
-    await storageSet('chatHistory', JSON.stringify(history));
-  }
-
-  const currentWeeklySavingRate = 340 / 4.3;
-  function calcGoal(save = true) {
+  // ── Savings goal ──
+  const currentWeeklySavingRate = 340 / 4.3; // based on "وفرت هذا الشهر" stat
+  function calcGoal() {
     const name = document.getElementById('goalName').value.trim() || 'هدفك';
     const amount = parseFloat(document.getElementById('goalAmount').value);
     const weeks = parseFloat(document.getElementById('goalWeeks').value);
@@ -1025,192 +1011,8 @@
       box.className = 'goal-result warn';
       box.innerHTML = `تحتاج توفير <b>${neededWeekly.toFixed(0)} ر.س/أسبوع</b> لتحقيق <b>${name}</b> خلال ${weeks} أسبوع، وهذا أعلى من معدلك الحالي بـ <b>${gap} ر.س</b>. جرّب تلغي اشتراك غير مستخدم من القائمة أعلاه لتقريب الفرق 💡`;
     }
-    if (save) {
-      storageSet('savingsGoal', JSON.stringify({ name, amount, weeks }));
-    }
   }
 
-  // ── SMS parsing (paste real bank SMS, no API integration needed) ──
-  const SMS_PARSE_PROMPT = `أنت محرك استخراج بيانات لرسائل SMS البنكية السعودية.
-مهمتك: تحليل رسالة SMS بنكية واحدة واستخراج البيانات منها.
-أرجع فقط كائن JSON صالح بدون أي نص إضافي أو Markdown، بهذا الشكل بالضبط:
-{"merchant": "اسم المتجر أو الجهة", "amount": رقم_المبلغ, "category": "فئة من: مطاعم وكافيهات | تسوق | فواتير | مواصلات | ترفيه | صحة | أخرى", "type": "خصم أو إيداع"}
-إذا لم تستطع استخراج بيانات واضحة من النص، أرجع: {"error": "لم أتمكن من فهم الرسالة"}`;
-
-  async function parseSms() {
-    const input = document.getElementById('smsInput');
-    const text = input.value.trim();
-    const btn = document.getElementById('smsBtn');
-    const spinner = document.getElementById('smsSpinner');
-    const btnText = document.getElementById('smsBtnText');
-    const errorBox = document.getElementById('smsError');
-    const resultBox = document.getElementById('smsResult');
-
-    errorBox.style.display = 'none';
-    resultBox.style.display = 'none';
-
-    if (!text) {
-      errorBox.textContent = 'الصق نص رسالة البنك أولاً.';
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    btn.disabled = true;
-    spinner.style.display = 'inline-block';
-    btnText.textContent = 'جاري التحليل...';
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 300,
-          system: SMS_PARSE_PROMPT,
-          messages: [{ role: 'user', content: text }]
-        })
-      });
-      const data = await res.json();
-      const raw = data.content?.[0]?.text || '{}';
-      const clean = raw.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
-
-      if (parsed.error) {
-        errorBox.textContent = 'ما قدرت أفهم الرسالة، جرّب رسالة بنكية بصيغة واضحة (مبلغ + جهة).';
-        errorBox.style.display = 'block';
-      } else {
-        resultBox.innerHTML = `
-          <div class="sms-result-row"><span class="label">التاجر / الجهة</span><span class="value">${parsed.merchant || '—'}</span></div>
-          <div class="sms-result-row"><span class="label">المبلغ</span><span class="value">${parsed.amount || '—'} ر.س</span></div>
-          <div class="sms-result-row"><span class="label">الفئة المقترحة</span><span class="value">${parsed.category || '—'}</span></div>
-          <div class="sms-result-row"><span class="label">النوع</span><span class="value">${parsed.type || '—'}</span></div>
-        `;
-        resultBox.style.display = 'block';
-      }
-    } catch (e) {
-      errorBox.textContent = 'صار خطأ بالتحليل، حاول مرة ثانية.';
-      errorBox.style.display = 'block';
-    } finally {
-      btn.disabled = false;
-      spinner.style.display = 'none';
-      btnText.textContent = 'حلّل الرسالة';
-    }
-  }
-
-  const SYSTEM_PROMPT = `أنت مساعد مالي ذكي اسمك "حاسب" داخل تطبيق مصرف الإنماء.
-تخصصك الأساسي: اكتشاف الاشتراكات المنسية ومصاريفها الخفية قبل ما تتراكم على العميل — هذي أقوى ميزة عندك، دايماً أبرزها لما تناسب المحادثة.
-تتحدث باللهجة السعودية بشكل ودي وبسيط.
-معلومات العميل:
-- الاسم: فهد العتيبي
-- الراتب الشهري: 8000 ريال
-- المصروف حتى الآن: 4760 ريال (في 21 يوم)
-- الرصيد المتبقي: 3240 ريال
-- تبقى من الشهر: 9 أيام
-- أعلى مصروف: مطاعم وكافيهات (1200 ريال)
-- وفّر 340 ريال مقارنة بالشهر الماضي
-
-تدقيق الاشتراكات (الميزة الرئيسية):
-- نتفليكس: 45 ريال/شهر، غير مستخدم منذ 62 يوم — مرشح للإلغاء
-- سبوتيفاي: 20 ريال/شهر، نشط يومياً
-- نادي فيتنس تايم: 199 ريال/شهر، استخدام منخفض (منذ 18 يوم) — مرشح للإلغاء
-- آبل آيكلاود+: 35 ريال/شهر، نشط
-- تطبيق تأمل ويوغا: 29 ريال/شهر، غير مستخدم منذ 47 يوم — مرشح للإلغاء
-- إجمالي التوفير الممكن لو ألغى الاشتراكات الثلاثة غير المستخدمة: 273 ريال/شهر (يعني حوالي 3,276 ريال بالسنة)
-
-هدف الادخار (ميزة جديدة):
-- العميل يقدر يحدد هدف ادخار (مبلغ + عدد أسابيع) والمساعد يحسب له المعدل الأسبوعي المطلوب ويقارنه بمعدل توفيره الحالي
-
-ردودك يجب أن تكون:
-- قصيرة ومباشرة (3-4 جمل كحد أقصى)
-- باللهجة السعودية
-- فيها أرقام محددة من بيانات العميل، ولما يكون مناسباً اربط الرقم الشهري برقمه السنوي عشان يحس بحجم التوفير الحقيقي
-- عملية وتقدم نصيحة واضحة، وإذا سأل عن الاشتراكات أو الادخار وجهه لاستخدام البطاقات الظاهرة في الشاشة
-لا تقل أنك AI أو Claude، أنت فقط "حاسب المالي".`;
-
-  async function sendMessage() {
-    const input = document.getElementById('userInput');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    addMsg(text, 'user');
-    history.push({ role: 'user', content: text });
-    await storageSet('chatHistory', JSON.stringify(history));
-    await getBotReply();
-  }
-
-  function sendQuick(text) {
-    document.getElementById('userInput').value = text;
-    sendMessage();
-  }
-
-  function addMsg(text, type) {
-    const msgs = document.getElementById('messages');
-    const div = document.createElement('div');
-    div.className = `msg ${type}`;
-    div.innerHTML = text;
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function showTyping() {
-    const msgs = document.getElementById('messages');
-    const div = document.createElement('div');
-    div.className = 'typing';
-    div.id = 'typing';
-    div.innerHTML = '<span></span><span></span><span></span>';
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    return div;
-  }
-
-  function getFallbackReply(userText) {
-    const t = userText.trim();
-    if (t.includes('فلوس') || t.includes('راحت')) {
-      return `أكبر مصروف عندك هذا الشهر مطاعم وكافيهات بـ<b>1,200 ر.س</b>، يليها اشتراكاتك (299 ر.س/شهر، بعضها منسي). راجعي التفاصيل من "الرئيسية" 📊`;
-    }
-    if (t.includes('أوفر') || t.includes('توفير') || t.includes('وفر')) {
-      return `أسرع طريقة: ألغي الاشتراكات غير المستخدمة (نتفليكس، النادي، تطبيق اليوغا) ووفري حتى <b>273 ر.س/شهر</b> — يعني <b>3,276 ر.س</b> بالسنة 💰`;
-    }
-    if (t.includes('هدف') || t.includes('ادخار')) {
-      return `افتحي بطاقة "🎯 هدف الادخار" بصفحة الرئيسية، حطي اسم هدفك والمبلغ وعدد الأسابيع، وبحسب لك خطة توفير أسبوعية فورية 🎯`;
-    }
-    if (t.includes('اشتراك')) {
-      return `عندك 3 اشتراكات مرشحة للإلغاء: <b>نتفليكس</b> (45 ر.س، منسي 62 يوم)، <b>نادي فيتنس تايم</b> (199 ر.س، استخدام منخفض)، و<b>تطبيق تأمل ويوغا</b> (29 ر.س، منسي 47 يوم). جربي تلغين وحد منها من صفحة الرئيسية ✅`;
-    }
-    return `أقدر أساعدك بمتابعة صرفك، اكتشاف الاشتراكات المنسية، أو حساب خطة ادخار. جربي أحد الأزرار السريعة أو اسأليني بشكل مباشر 🙂`;
-  }
-
-  async function getBotReply() {
-    const typing = showTyping();
-    const lastUserMsg = history.length ? history[history.length - 1].content : '';
-    try {
-      if (CHAT_PROXY_URL.includes('REPLACE-WITH-YOUR-RENDER-URL')) {
-        throw new Error('Proxy not configured yet');
-      }
-      const res = await fetch(`${CHAT_PROXY_URL}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system: SYSTEM_PROMPT,
-          messages: history
-        })
-      });
-      if (!res.ok) throw new Error('API not available');
-      const data = await res.json();
-      const reply = data.content?.[0]?.text || getFallbackReply(lastUserMsg);
-      typing.remove();
-      history.push({ role: 'assistant', content: reply });
-      await storageSet('chatHistory', JSON.stringify(history));
-      addMsg(reply, 'bot');
-    } catch (e) {
-      typing.remove();
-      const reply = getFallbackReply(lastUserMsg);
-      history.push({ role: 'assistant', content: reply });
-      await storageSet('chatHistory', JSON.stringify(history));
-      addMsg(reply, 'bot');
-    }
-  }
 </script>
 </body>
 </html>
-
