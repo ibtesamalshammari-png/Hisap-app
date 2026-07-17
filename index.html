@@ -2,1017 +2,885 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مساعد امد المالي</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>لماج — مساعدك المالي الذكي</title>
 <style>
-  :root {
-    --bg: #0a0f1e;
-    --card: #111827;
-    --card2: #1a2235;
-    --accent: #c9622a;
-    --accent2: #7c6af7;
-    --text: #f0f4ff;
-    --muted: #7a8aaa;
-    --green: #22c55e;
-    --red: #ef4444;
-    --border: rgba(255,255,255,0.07);
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #F4F7F8;
+    --card: #FFFFFF;
+    --card-soft: #F8FAFB;
+    --border: #E7ECEE;
+    --teal: #12A594;
+    --teal-dark: #0C7A6E;
+    --teal-tint: #E4F5F2;
+    --coral: #F0654F;
+    --coral-tint: #FCEAE7;
+    --amber: #F5A524;
+    --amber-tint: #FDF3E1;
+    --green: #22B07D;
+    --text: #1B2A2E;
+    --muted: #6B7B80;
+    --muted-2: #93A0A4;
+    --shadow: 0 8px 24px rgba(18,40,45,0.08);
+    --shadow-sm: 0 2px 8px rgba(18,40,45,0.06);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    background: var(--bg);
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:'IBM Plex Sans Arabic', Tahoma, sans-serif;
+    background: linear-gradient(180deg,#EAF2F1 0%, #F4F7F8 40%);
     color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display:flex; flex-direction:column; align-items:center;
+    min-height:100vh;
+    padding: 28px 14px 60px;
   }
 
-  /* TOP BAR */
-  .topbar {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px 8px;
+  /* ── page chrome ───────────────────────────── */
+  .page-head{
+    width:100%; max-width:420px;
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:16px; padding: 0 4px;
   }
-  .topbar .logo {
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 0.5px;
+  .brand{ display:flex; align-items:center; gap:8px; }
+  .brand-badge{
+    width:30px; height:30px; border-radius:9px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px;
   }
-  .topbar .brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 600;
+  .brand-name{ font-weight:700; font-size:15px; }
+  .brand-sub{ font-size:10.5px; color:var(--muted); }
+
+  .toggle{
+    display:flex; background:#fff; border:1px solid var(--border);
+    border-radius:999px; padding:3px; box-shadow: var(--shadow-sm);
   }
-  .brand-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-    animation: pulse 2s infinite;
+  .toggle button{
+    border:none; background:transparent; font-family:inherit;
+    font-size:12.5px; font-weight:600; color:var(--muted);
+    padding:7px 14px; border-radius:999px; cursor:pointer;
+    display:flex; align-items:center; gap:5px;
+    transition: all .2s;
   }
-  @keyframes pulse {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.8); }
+  .toggle button.active{
+    background: var(--teal); color:#fff;
+    box-shadow: 0 4px 10px rgba(18,165,148,0.35);
   }
 
-  /* HERO CARD */
-  .hero {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    background: linear-gradient(135deg, #1a2540 0%, #0f1829 100%);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 8px 0 12px;
-    position: relative;
-    overflow: hidden;
+  /* ── phone frame ───────────────────────────── */
+  .phone{
+    width:100%; max-width:390px;
+    background:#fff;
+    border-radius:34px;
+    box-shadow: 0 30px 60px rgba(18,40,45,0.16), 0 2px 8px rgba(18,40,45,0.08);
+    border: 1px solid #fff;
+    overflow:hidden;
+    position:relative;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -40px; left: -40px;
-    width: 160px; height: 160px;
-    background: radial-gradient(circle, rgba(124,106,247,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-greeting {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-  .hero-name {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  .hero-name span { color: var(--accent); }
+  .phone-inner{ min-height:700px; display:flex; flex-direction:column; }
 
-  .balance-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  .balance-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-  .balance-amount { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-  .balance-currency { font-size: 14px; color: var(--muted); margin-right: 4px; }
-
-  .budget-bar-wrap {
-    margin-top: 16px;
-  }
-  .budget-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .budget-bar {
-    height: 6px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .budget-fill {
-    height: 100%;
-    width: 0%;
-    border-radius: 99px;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  /* ── shared: status bar ───────────────────── */
+  .statusbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 20px 4px; font-size:12px; font-weight:600; color:var(--text);
   }
 
-  /* ALERT CARD */
-  .alert-card {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    background: rgba(201,98,42,0.1);
-    border: 1px solid rgba(201,98,42,0.3);
-    border-radius: 14px;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    animation: slideIn 0.5s ease 0.8s both;
-  }
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .alert-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .alert-text { font-size: 13px; line-height: 1.6; }
-  .alert-text strong { color: var(--accent); }
+  /* =====================================================================
+     CONTEXT A — WhatsApp
+     ===================================================================== */
+  #ctxWhatsapp{ display:flex; flex-direction:column; flex:1; }
 
-  /* STATS ROW */
-  .stats-row {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
+  .wa-tabs{
+    display:flex; gap:6px; padding:10px 14px 0;
   }
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px;
-    animation: slideIn 0.5s ease both;
+  .wa-tab{
+    flex:1; text-align:center; font-size:11.5px; font-weight:600;
+    color:var(--muted); padding:8px 4px; border-radius:10px; cursor:pointer;
+    border: 1px solid transparent;
   }
-  .stat-card:nth-child(1) { animation-delay: 0.3s; }
-  .stat-card:nth-child(2) { animation-delay: 0.45s; }
-  .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-  .stat-value { font-size: 20px; font-weight: 700; }
-  .stat-value.up { color: var(--red); }
-  .stat-value.down { color: var(--green); }
-  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .wa-tab.active{ background:var(--teal-tint); color:var(--teal-dark); border-color:rgba(18,165,148,0.25); }
 
-  /* CHAT SECTION */
-  .chat-section {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 80px;
-    animation: slideIn 0.5s ease 0.6s both;
+  /* lock screen */
+  .lock-screen{
+    flex:1; background: radial-gradient(circle at 30% 20%, #EAF2F5 0%, #DCE7EB 60%, #CBD9DE 100%);
+    display:flex; flex-direction:column; align-items:center;
+    padding-top:56px; position:relative;
   }
-  .chat-header {
-    padding: 14px 16px;
-    background: var(--card2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .lock-time{ font-size:56px; font-weight:700; letter-spacing:-1px; color:#1B2A2E; }
+  .lock-date{ font-size:13px; color:#4C5C60; margin-top:4px; }
+  .lock-notif{
+    margin-top:40px; width:calc(100% - 32px);
+    background:rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.6);
+    border-radius:18px; padding:13px 14px;
+    display:flex; gap:11px; align-items:flex-start;
+    box-shadow: 0 12px 26px rgba(18,40,45,0.14);
+    cursor:pointer;
+    animation: notifDrop .5s cubic-bezier(.2,.9,.3,1.2) both;
   }
-  .chat-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
+  @keyframes notifDrop{ from{opacity:0; transform:translateY(-16px) scale(.97);} to{opacity:1; transform:translateY(0) scale(1);} }
+  .lock-notif-icon{
+    width:34px; height:34px; border-radius:10px; flex-shrink:0;
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+    display:flex; align-items:center; justify-content:center; font-size:16px;
   }
-  .chat-title { font-size: 14px; font-weight: 600; }
-  .chat-status { font-size: 11px; color: var(--green); }
-
-  .chat-messages {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-height: 200px;
-    max-height: 320px;
-    overflow-y: auto;
+  .lock-notif-body{ flex:1; }
+  .lock-notif-top{ display:flex; justify-content:space-between; margin-bottom:2px; }
+  .lock-notif-app{ font-size:10.5px; color:var(--muted); font-weight:600; }
+  .lock-notif-time{ font-size:10px; color:var(--muted-2); }
+  .lock-notif-title{ font-size:13px; font-weight:700; color:var(--text); margin-bottom:2px;}
+  .lock-notif-text{ font-size:12px; color:#3C4A4E; line-height:1.5; }
+  .lock-hint{ margin-top:auto; margin-bottom:30px; font-size:10.5px; color:#5C6C70; opacity:.75; }
+  .lock-torch-cam{
+    position:absolute; bottom:78px; left:20px; right:20px;
+    display:flex; justify-content:space-between;
   }
-  .chat-messages::-webkit-scrollbar { width: 4px; }
-  .chat-messages::-webkit-scrollbar-track { background: transparent; }
-  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
-
-  .msg {
-    max-width: 85%;
-    padding: 10px 14px;
-    border-radius: 16px;
-    font-size: 13px;
-    line-height: 1.6;
-    animation: msgIn 0.3s ease both;
-  }
-  @keyframes msgIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .msg.bot {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-bottom-right-radius: 4px;
-    align-self: flex-start;
-  }
-  .msg.user {
-    background: linear-gradient(135deg, var(--accent2), #5a4fd4);
-    align-self: flex-end;
-    border-bottom-left-radius: 4px;
-  }
-  .msg .highlight { color: var(--accent); font-weight: 600; }
-  .msg .good { color: var(--green); font-weight: 600; }
-
-  .typing {
-    display: flex; gap: 4px; align-items: center;
-    padding: 12px 14px;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    border-bottom-right-radius: 4px;
-    width: fit-content;
-    align-self: flex-start;
-  }
-  .typing span {
-    width: 6px; height: 6px;
-    background: var(--muted);
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-  }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce {
-    0%,60%,100% { transform: translateY(0); }
-    30% { transform: translateY(-5px); }
+  .lock-circle-btn{
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,0.6); display:flex; align-items:center; justify-content:center; font-size:16px;
   }
 
-  /* QUICK REPLIES */
-  .quick-replies {
-    padding: 10px 16px;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--border);
+  /* chat */
+  .wa-chat{ display:none; flex-direction:column; flex:1; background:var(--card-soft); }
+  .wa-chat.active{ display:flex; }
+  .wa-chat-header{
+    display:flex; align-items:center; gap:10px; padding:12px 16px;
+    background:#fff; border-bottom:1px solid var(--border);
   }
-  .quick-btn {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 12px;
-    padding: 7px 12px;
-    border-radius: 99px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+  .wa-back{ font-size:16px; color:var(--muted); }
+  .wa-avatar{
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(135deg, var(--teal), var(--teal-dark));
+    display:flex; align-items:center; justify-content:center; font-size:15px;
   }
-  .quick-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+  .wa-chat-title{ font-size:13.5px; font-weight:700; display:flex; align-items:center; gap:4px; }
+  .wa-chat-sub{ font-size:10.5px; color:var(--muted); }
+  .wa-dots{ margin-right:auto; color:var(--muted-2); font-size:16px; }
+
+  .wa-messages{ flex:1; padding:14px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+
+  .wa-bubble{
+    background:#fff; border:1px solid var(--border); border-radius:16px 16px 16px 4px;
+    padding:12px 14px; font-size:13px; line-height:1.7; max-width:88%;
+    box-shadow: var(--shadow-sm);
+    animation: msgIn .3s ease both;
+  }
+  @keyframes msgIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .forecast-card{
+    background:#fff; border:1px solid var(--border); border-radius:16px;
+    padding:14px; box-shadow: var(--shadow-sm); animation: msgIn .3s ease both;
+  }
+  .forecast-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  .forecast-title{ font-size:12.5px; font-weight:700; }
+  .forecast-date{ font-size:10.5px; color:var(--muted-2); }
+  .forecast-alert{
+    display:flex; align-items:center; gap:8px;
+    background:var(--coral-tint); border-radius:12px; padding:10px 12px; margin-bottom:12px;
+  }
+  .forecast-alert-icon{ font-size:16px; }
+  .forecast-alert-text{ font-size:11px; color:#8A4033; }
+  .forecast-alert-days{ font-size:19px; font-weight:800; color:var(--coral); }
+
+  .chart-wrap{ height:88px; margin-bottom:8px; }
+  .chart-labels{ display:flex; justify-content:space-between; font-size:9.5px; color:var(--muted-2); margin-bottom:10px; }
+
+  .forecast-stats{ display:flex; gap:10px; margin-bottom:12px; }
+  .fstat{ flex:1; background:var(--card-soft); border-radius:10px; padding:8px 10px; }
+  .fstat-label{ font-size:9.5px; color:var(--muted); margin-bottom:2px; }
+  .fstat-value{ font-size:13px; font-weight:700; }
+
+  .btn-stack{ display:flex; flex-direction:column; gap:7px; }
+  .btn{
+    border:none; border-radius:11px; padding:11px; font-size:12.5px; font-weight:700;
+    font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .btn-teal{ background:var(--teal-tint); color:var(--teal-dark); }
+  .btn-outline{ background:#fff; color:var(--text); border:1px solid var(--border); }
+  .btn-coral{ background:var(--coral-tint); color:var(--coral); }
+
+  .subs-card{
+    background:#fff; border:1px solid var(--border); border-radius:16px;
+    padding:14px; box-shadow: var(--shadow-sm); animation: msgIn .3s ease both;
+  }
+  .subs-head{ display:flex; align-items:center; gap:8px; margin-bottom:2px; font-size:12.5px; font-weight:700; }
+  .subs-sub{ font-size:11px; color:var(--muted); margin-bottom:10px; }
+
+  .sub-row{ display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--border); }
+  .sub-row:first-of-type{ border-top:none; }
+  .sub-icon{ width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+  .sub-info{ flex:1; }
+  .sub-name{ font-size:12px; font-weight:700; }
+  .sub-price{ font-size:10.5px; color:var(--muted); }
+  .sub-status{ font-size:10px; font-weight:700; padding:4px 9px; border-radius:999px; }
+  .status-active{ background:var(--teal-tint); color:var(--teal-dark); }
+  .status-inactive{ background:var(--coral-tint); color:var(--coral); }
+
+  .unused-banner{
+    margin-top:10px; background:var(--amber-tint); border-radius:12px; padding:10px 12px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .unused-banner-text{ font-size:11px; color:#7A5A0F; }
+  .unused-banner-value{ font-size:13px; font-weight:800; color:#B4790E; }
+
+  .wa-inputbar{
+    display:flex; align-items:center; gap:8px; padding:10px 12px;
+    background:#fff; border-top:1px solid var(--border);
+  }
+  .wa-inputbar input{
+    flex:1; border:1px solid var(--border); background:var(--card-soft);
+    border-radius:999px; padding:9px 14px; font-size:12px; font-family:inherit; color:var(--muted);
+  }
+  .wa-icon-btn{ font-size:16px; color:var(--muted-2); }
+
+  /* =====================================================================
+     CONTEXT B — App Dashboard
+     ===================================================================== */
+  #ctxApp{ display:none; flex-direction:column; flex:1; }
+  #ctxApp.active{ display:flex; }
+
+  .app-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px 6px;
+  }
+  .app-header-title{ font-size:16px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .app-bell{
+    width:34px; height:34px; border-radius:50%; background:var(--card-soft);
+    display:flex; align-items:center; justify-content:center; font-size:14px; position:relative;
+  }
+  .app-bell::after{
+    content:''; position:absolute; top:8px; left:9px; width:7px; height:7px;
+    border-radius:50%; background:var(--coral); border:1.5px solid #fff;
   }
 
-  /* INPUT */
-  .chat-input {
-    padding: 12px 16px;
-    display: flex;
-    gap: 8px;
-    border-top: 1px solid var(--border);
-  }
-  .chat-input input {
-    flex: 1;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    padding: 10px 16px;
-    color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s;
-    text-align: right;
-  }
-  .chat-input input:focus { border-color: var(--accent2); }
-  .chat-input input::placeholder { color: var(--muted); }
-  .send-btn {
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    transition: transform 0.2s, opacity 0.2s;
-    flex-shrink: 0;
-  }
-  .send-btn:hover { transform: scale(1.08); }
-  .send-btn:active { transform: scale(0.95); }
+  .app-screen{ display:none; flex-direction:column; flex:1; padding:8px 16px 16px; overflow-y:auto; gap:12px; }
+  .app-screen.active{ display:flex; }
 
-  /* PANEL CARDS (subscriptions + savings goal) */
-  .panel-card {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 16px;
-    margin-bottom: 12px;
-    animation: slideIn 0.5s ease both;
+  .balance-card{
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    border-radius:18px; padding:18px; color:#fff;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow: 0 10px 24px rgba(18,165,148,0.3);
   }
-  .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .panel-title { font-size: 14px; font-weight: 700; }
-  .panel-badge {
-    font-size: 11px;
-    background: rgba(34,197,94,0.12);
-    color: var(--green);
-    padding: 4px 10px;
-    border-radius: 99px;
-    font-weight: 600;
-    transition: all 0.3s;
+  .balance-label{ font-size:11.5px; opacity:.85; margin-bottom:6px; }
+  .balance-value{ font-size:24px; font-weight:800; }
+  .balance-updated{ font-size:9.5px; opacity:.75; margin-top:6px; }
+  .balance-ring{
+    width:52px; height:52px; border-radius:50%;
+    border:5px solid rgba(255,255,255,0.3); border-top-color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:16px;
   }
 
-  .sub-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-top: 1px solid var(--border);
+  .stat-row{ display:flex; gap:10px; }
+  .stat-card{
+    flex:1; background:#fff; border:1px solid var(--border); border-radius:14px; padding:12px 13px;
+    box-shadow: var(--shadow-sm);
   }
-  .sub-item:first-of-type { border-top: none; }
-  .sub-info { flex: 1; min-width: 0; }
-  .sub-name { font-size: 13px; font-weight: 600; }
-  .sub-name.cancelled { text-decoration: line-through; color: var(--muted); }
-  .sub-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .sub-status {
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 99px;
-    white-space: nowrap;
-    flex-shrink: 0;
+  .stat-label{ font-size:10.5px; color:var(--muted); margin-bottom:5px; }
+  .stat-value{ font-size:17px; font-weight:800; display:flex; align-items:baseline; gap:5px; }
+  .stat-value small{ font-size:10.5px; font-weight:500; color:var(--muted); }
+  .stat-tag{ font-size:9.5px; font-weight:700; color:var(--coral); display:flex; align-items:center; gap:2px; margin-top:4px; }
+
+  .forecast-mini{
+    background:#fff; border:1px solid var(--border); border-radius:14px; padding:13px 14px;
+    box-shadow: var(--shadow-sm);
   }
-  .sub-status.unused { background: rgba(239,68,68,0.12); color: var(--red); }
-  .sub-status.low { background: rgba(201,98,42,0.15); color: var(--accent); }
-  .sub-status.active { background: rgba(34,197,94,0.12); color: var(--green); }
-  .sub-cancel {
-    font-size: 11px;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 5px 10px;
-    border-radius: 99px;
-    cursor: pointer;
-    flex-shrink: 0;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    transition: all 0.2s;
+  .forecast-mini-label{ font-size:10.5px; color:var(--muted); margin-bottom:4px; }
+  .forecast-mini-value{ font-size:20px; font-weight:800; color:var(--coral); }
+  .forecast-mini-sub{ font-size:10.5px; color:var(--muted); margin-top:4px; }
+
+  .section-label{ font-size:11.5px; font-weight:700; color:var(--muted); margin: 2px 0 -2px; }
+
+  /* bottom nav */
+  .bottom-nav{
+    display:flex; border-top:1px solid var(--border); background:#fff;
+    padding: 8px 4px 12px;
   }
-  .sub-cancel:hover { background: var(--red); border-color: var(--red); }
-  .sub-cancel:disabled {
-    opacity: 0.5;
-    cursor: default;
-    background: var(--card2);
+  .nav-item{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    font-size:8.7px; color:var(--muted-2); cursor:pointer; padding:4px 0;
+  }
+  .nav-item .nav-ic{ font-size:16px; }
+  .nav-item.active{ color:var(--teal-dark); font-weight:700; }
+
+  /* forecast screen */
+  .range-select{
+    align-self:flex-start; font-size:11px; font-weight:600; color:var(--teal-dark);
+    background:var(--teal-tint); padding:6px 12px; border-radius:999px;
+    display:flex; align-items:center; gap:4px;
+  }
+  .big-chart-wrap{ height:150px; }
+  .forecast-target-line{ font-size:9px; color:var(--coral); text-align:left; margin-top:-4px;}
+
+  .minmax-row{ display:flex; gap:10px; }
+  .minmax-card{ flex:1; background:var(--card-soft); border-radius:12px; padding:10px 12px; }
+  .minmax-label{ font-size:10px; color:var(--muted); display:flex; align-items:center; gap:4px; }
+  .minmax-value{ font-size:15px; font-weight:800; margin-top:3px; }
+  .minmax-date{ font-size:9.5px; color:var(--muted-2); }
+
+  .tip-card{
+    background:var(--teal-tint); border-radius:14px; padding:12px 13px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .tip-icon{ font-size:16px; }
+  .tip-title{ font-size:11px; font-weight:700; color:var(--teal-dark); margin-bottom:3px; }
+  .tip-text{ font-size:11px; color:#2E5952; line-height:1.6; }
+
+  /* subs screen */
+  .subs-filter-row{ display:flex; gap:8px; }
+  .filter-pill{
+    font-size:11px; font-weight:600; padding:7px 13px; border-radius:999px;
+    background:var(--card-soft); color:var(--muted); cursor:pointer;
+  }
+  .filter-pill.active{ background:var(--teal); color:#fff; }
+  .subs-list-card{ background:#fff; border:1px solid var(--border); border-radius:16px; padding:6px 14px; box-shadow:var(--shadow-sm); }
+
+  /* goals screen */
+  .goal-card{
+    background:#fff; border:1px solid var(--border); border-radius:16px; padding:16px;
+    box-shadow: var(--shadow-sm); display:flex; flex-direction:column; gap:10px;
+  }
+  .goal-top{ display:flex; justify-content:space-between; align-items:center; }
+  .goal-name{ font-size:13.5px; font-weight:700; }
+  .goal-icon{ font-size:20px; }
+  .goal-progress-bg{ height:9px; background:var(--card-soft); border-radius:999px; overflow:hidden; }
+  .goal-progress-fill{ height:100%; background:linear-gradient(90deg, var(--teal), var(--teal-dark)); border-radius:999px; }
+  .goal-nums{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+  .goal-nums b{ color:var(--text); font-size:12.5px; }
+
+  .empty-note{ text-align:center; font-size:11px; color:var(--muted-2); padding:20px 10px; }
+
+  /* ── family screen ─────────────────────────── */
+  .family-members-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:2px; }
+  .family-member{ display:flex; flex-direction:column; align-items:center; gap:5px; flex-shrink:0; }
+  .family-avatar{
+    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:19px; border:2px solid #fff; box-shadow: var(--shadow-sm);
+  }
+  .family-name{ font-size:10px; color:var(--muted); font-weight:600; }
+  .family-add{
+    width:46px; height:46px; border-radius:50%; border:2px dashed var(--border);
+    display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--muted-2);
   }
 
-  .goal-form { display: flex; flex-direction: column; gap: 8px; }
-  .goal-form input {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 9px 12px;
-    color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 13px;
-    outline: none;
-    text-align: right;
-    width: 100%;
+  .family-code-card{
+    background:var(--teal-tint); border-radius:14px; padding:12px 13px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
   }
-  .goal-form input:focus { border-color: var(--accent2); }
-  .goal-row { display: flex; gap: 8px; }
-  .goal-btn {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border: none;
-    color: white;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 2px;
-    transition: transform 0.15s;
-  }
-  .goal-btn:hover { transform: scale(1.01); }
-  .goal-result {
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 12.5px;
-    line-height: 1.7;
-    animation: slideIn 0.4s ease both;
-  }
-  .goal-result.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
-  .goal-result.warn { background: rgba(201,98,42,0.1); border: 1px solid rgba(201,98,42,0.3); }
-  .goal-result b { color: var(--text); }
-
-
-  #loading {
-    position: fixed; inset: 0;
-    background: var(--bg);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px;
-    z-index: 100;
-    transition: opacity 0.5s;
-  }
-  .loading-logo { font-size: 32px; font-weight: 700; }
-  .loading-logo span { color: var(--accent); }
-  .loading-bar {
-    width: 120px; height: 3px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .loading-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 99px;
-    animation: load 1.5s ease forwards;
-  }
-  @keyframes load {
-    from { width: 0%; }
-    to { width: 100%; }
+  .family-code-text{ font-size:11px; color:var(--teal-dark); line-height:1.6; }
+  .family-code-value{ font-size:14px; font-weight:800; color:var(--teal-dark); letter-spacing:1px; }
+  .family-code-btn{
+    background:#fff; border:none; border-radius:9px; padding:8px 12px;
+    font-size:11px; font-weight:700; color:var(--teal-dark); font-family:inherit; cursor:pointer; flex-shrink:0;
   }
 
-  /* ── LOCKSCREEN + WHATSAPP NOTIFICATION INTRO ── */
-  #lockscreen {
-    position: fixed; inset: 0;
-    z-index: 500;
-    background:
-      radial-gradient(circle at 50% 15%, rgba(124,106,247,0.18) 0%, transparent 45%),
-      linear-gradient(180deg, #0d1326 0%, #060810 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 80px;
-    transition: opacity 0.5s ease, visibility 0.5s;
-  }
-  #lockscreen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-  .lock-time {
-    font-size: 68px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    font-variant-numeric: tabular-nums;
-  }
-  .lock-date {
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-  .lock-hint {
-    margin-top: auto;
-    margin-bottom: 34px;
-    font-size: 11px;
-    color: var(--muted);
-    opacity: 0.7;
-  }
+  .budget-card{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:13px 14px; box-shadow: var(--shadow-sm); }
+  .budget-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .budget-name{ font-size:12px; font-weight:700; display:flex; align-items:center; gap:6px; }
+  .budget-nums{ font-size:11px; color:var(--muted); }
+  .budget-nums b{ color:var(--text); }
+  .budget-bar-bg{ height:8px; background:var(--card-soft); border-radius:999px; overflow:hidden; }
+  .budget-bar-fill{ height:100%; border-radius:999px; }
 
-  .wa-notif {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    margin-top: 46px;
-    background: rgba(26,34,53,0.92);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 18px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 11px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-    opacity: 0;
-    transform: translateY(-30px) scale(0.96);
-    cursor: pointer;
+  .suggestion-card{
+    background:var(--coral-tint); border:1px solid rgba(240,101,79,0.25); border-radius:14px; padding:13px 14px;
+    display:flex; flex-direction:column; gap:10px;
   }
-  .wa-notif.show {
-    animation: notifDrop 0.6s cubic-bezier(.2,.9,.3,1.3) forwards, notifBuzz 0.5s ease 0.7s;
-  }
-  @keyframes notifDrop {
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes notifBuzz {
-    0%,100% { transform: translateY(0) rotate(0); }
-    20% { transform: translateY(0) rotate(-1deg); }
-    40% { transform: translateY(0) rotate(1deg); }
-    60% { transform: translateY(0) rotate(-1deg); }
-    80% { transform: translateY(0) rotate(0.5deg); }
-  }
-  .wa-notif-icon {
-    width: 34px; height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #25D366, #128C4E);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 17px;
-    flex-shrink: 0;
-  }
-  .wa-notif-body { flex: 1; min-width: 0; }
-  .wa-notif-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 2px;
-  }
-  .wa-notif-app {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 600;
-  }
-  .wa-notif-time { font-size: 10.5px; color: var(--muted); }
-  .wa-notif-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .wa-notif-text {
-    font-size: 12.5px;
-    color: #d3dae8;
-    line-height: 1.5;
-  }
-  .wa-notif-text strong { color: var(--accent); }
+  .suggestion-head{ display:flex; gap:8px; align-items:flex-start; }
+  .suggestion-icon{ font-size:16px; }
+  .suggestion-title{ font-size:11px; font-weight:700; color:#8A4033; margin-bottom:3px; }
+  .suggestion-text{ font-size:11.5px; color:#6B342A; line-height:1.7; }
+  .suggestion-actions{ display:flex; gap:8px; }
+  .suggestion-actions .btn{ flex:1; padding:9px; font-size:11.5px; }
 
-  /* ── MINI WEEK CHART INSIDE CHAT ── */
-  .week-chart {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 12px 14px 10px;
-    align-self: flex-start;
-    max-width: 90%;
-    animation: msgIn 0.3s ease both;
-  }
-  .week-chart-title {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .week-chart-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 7px;
-    height: 64px;
-  }
-  .week-chart-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100%;
-    gap: 4px;
-  }
-  .week-chart-bar {
-    width: 100%;
-    max-width: 18px;
-    border-radius: 4px;
-    background: var(--accent2);
-    opacity: 0.55;
-    height: 0%;
-    transition: height 0.7s cubic-bezier(.2,.8,.3,1);
-  }
-  .week-chart-bar.flag { background: var(--accent); opacity: 1; }
-  .week-chart-day { font-size: 9.5px; color: var(--muted); }
-  .week-chart-sub {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 8px;
-  }
-
-  /* ── INVOICE ATTACH ── */
-  .attach-btn {
-    width: 38px; height: 38px;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 15px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.15s, border-color 0.2s;
-  }
-  .attach-btn:hover { border-color: var(--accent2); transform: scale(1.06); }
-
-  .msg.user img {
-    display: block;
-    max-width: 100%;
-    border-radius: 12px;
-    margin-bottom: 6px;
-  }
-  .msg-caption { font-size: 11px; opacity: 0.85; }
-
-  .invoice-parsed {
-    background: var(--card2);
-    border: 1px solid rgba(34,197,94,0.35);
-    border-radius: 14px;
-    padding: 12px 14px;
-    align-self: flex-start;
-    max-width: 90%;
-    font-size: 12.5px;
-    line-height: 1.7;
-    animation: msgIn 0.3s ease both;
-  }
-  .invoice-parsed .ip-title {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: var(--green);
-    margin-bottom: 6px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .invoice-parsed .ip-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 3px 0;
-    border-top: 1px solid var(--border);
-  }
-  .invoice-parsed .ip-row:first-of-type { border-top: none; }
-  .invoice-parsed .ip-label { color: var(--muted); }
-  .invoice-parsed .ip-value { font-weight: 600; }
-
-  .wa-hint {
-    width: calc(100% - 32px);
-    max-width: 388px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: var(--muted);
-    margin: -8px 0 90px;
-    line-height: 1.6;
-  }
-  .wa-hint-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #25D366;
-    flex-shrink: 0;
-    box-shadow: 0 0 6px #25D366;
-  }
-
-  .live-note {
-    margin: 4px 16px 14px;
-    padding: 12px 14px;
-    background: rgba(124,106,247,0.1);
-    border: 1px solid rgba(124,106,247,0.3);
-    border-radius: 12px;
-    font-size: 11.5px;
-    line-height: 1.7;
-    color: #cdd4ee;
+  /* footer credit */
+  .footer-note{
+    width:100%; max-width:420px; text-align:center; margin-top:18px;
+    font-size:10.5px; color:#7C8A8E;
   }
 </style>
 </head>
 <body>
 
-<!-- LOCKSCREEN + WHATSAPP NOTIFICATION INTRO -->
-<div id="lockscreen">
-  <div class="lock-time" id="lockTime">3:41</div>
-  <div class="lock-date">الجمعة، 17 يوليو</div>
-
-  <div class="wa-notif" id="waNotif" onclick="openApp()">
-    <div class="wa-notif-icon">💬</div>
-    <div class="wa-notif-body">
-      <div class="wa-notif-top">
-        <span class="wa-notif-app">WhatsApp</span>
-        <span class="wa-notif-time">الآن</span>
-      </div>
-      <div class="wa-notif-title">لمّاح · بنك الإنماء</div>
-      <div class="wa-notif-text">صرفت <strong>340 ر.س</strong> على مطعم اليوم — أعلى من معدلك الأسبوعي بـ 3 أضعاف. اضغط لتشوف التفاصيل 👀</div>
-    </div>
-  </div>
-
-  <div class="lock-hint">اضغط على الإشعار للمتابعة</div>
-</div>
-
-<!-- LOADING -->
-<div id="loading">
-  <div class="loading-logo">مساعد <span>امد</span></div>
-  <div class="loading-bar"><div class="loading-fill"></div></div>
-</div>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <span class="logo">مصرف الإنماء</span>
+<div class="page-head">
   <div class="brand">
-    <div class="brand-dot"></div>
-    <span>هاكاثون امد</span>
-  </div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-greeting">مرحباً بك،</div>
-  <div class="hero-name">فهد <span>العتيبي</span> 👋</div>
-  <div class="balance-row">
+    <div class="brand-badge">📈</div>
     <div>
-      <div class="balance-label">الرصيد المتاح</div>
-      <div class="balance-amount"><span class="balance-currency">ر.س</span>3,240</div>
-    </div>
-    <div style="text-align:left">
-      <div class="balance-label">الراتب الشهري</div>
-      <div style="font-size:16px; font-weight:600; color:var(--muted)">8,000 ر.س</div>
+      <div class="brand-name">لماج</div>
+      <div class="brand-sub">المساعد المالي الذكي</div>
     </div>
   </div>
-  <div class="budget-bar-wrap">
-    <div class="budget-row">
-      <span>المصروف هذا الشهر</span>
-      <span id="pct">59%</span>
-    </div>
-    <div class="budget-bar">
-      <div class="budget-fill" id="budgetFill"></div>
-    </div>
+  <div class="toggle">
+    <button id="btnWa" class="active" onclick="setContext('wa')">💬 واتساب</button>
+    <button id="btnApp" onclick="setContext('app')">📱 التطبيق</button>
   </div>
 </div>
 
-<!-- ALERT -->
-<div class="alert-card">
-  <div class="alert-icon">⚠️</div>
-  <div class="alert-text">
-    صرفت <strong>4,760 ر.س</strong> من راتبك في أول 3 أسابيع.
-    إذا كملت بنفس الوتيرة، <strong>الراتب يخلص قبل نهاية الشهر بـ 6 أيام</strong>.
+<div class="phone">
+  <div class="phone-inner">
+    <div class="statusbar"><span>9:41</span><span>🔋 📶 📡</span></div>
+
+    <!-- ============================= CONTEXT A: WHATSAPP ============================= -->
+    <div id="ctxWhatsapp" class="active">
+
+      <!-- Lock screen -->
+      <div class="lock-screen" id="lockScreen">
+        <div class="lock-time">9:41</div>
+        <div class="lock-date">الأحد، 17 يوليو</div>
+        <div class="lock-notif" onclick="openChat('forecast')">
+          <div class="lock-notif-icon">📈</div>
+          <div class="lock-notif-body">
+            <div class="lock-notif-top">
+              <span class="lock-notif-app">لماج · تنبيه ذكي</span>
+              <span class="lock-notif-time">الآن</span>
+            </div>
+            <div class="lock-notif-title">رصيدك ممكن ينفد خلال 5 أيام</div>
+            <div class="lock-notif-text">بناءً على مصاريفك الحالية</div>
+          </div>
+        </div>
+        <div class="lock-hint">اضغط على الإشعار للمتابعة</div>
+        <div class="lock-torch-cam">
+          <div class="lock-circle-btn">🔦</div>
+          <div class="lock-circle-btn">📷</div>
+        </div>
+      </div>
+
+      <!-- Chat: forecast -->
+      <div class="wa-chat" id="chatForecast">
+        <div class="wa-chat-header">
+          <span class="wa-back" onclick="backToLock()">←</span>
+          <div class="wa-avatar">📈</div>
+          <div>
+            <div class="wa-chat-title">لماج</div>
+            <div class="wa-chat-sub">المساعد المالي الذكي ✅</div>
+          </div>
+          <span class="wa-dots">⋮</span>
+        </div>
+        <div class="wa-tabs">
+          <div class="wa-tab active" onclick="openChat('forecast')">التوقعات</div>
+          <div class="wa-tab" onclick="openChat('subs')">الاشتراكات</div>
+          <div class="wa-tab" onclick="openChat('family')">👨‍👩‍👧 العائلة</div>
+        </div>
+        <div class="wa-messages">
+          <div class="wa-bubble">مساء 👋<br>هذا ملخص وضعك المالي اليوم</div>
+
+          <div class="forecast-card">
+            <div class="forecast-head">
+              <span class="forecast-title">توقعاتي المالية</span>
+              <span class="forecast-date">اليوم، 17 يوليو</span>
+            </div>
+            <div class="forecast-alert">
+              <span class="forecast-alert-icon">⏰</span>
+              <div style="flex:1">
+                <div class="forecast-alert-text">رصيدك ممكن ينفد خلال</div>
+                <div class="forecast-alert-days">5 أيام</div>
+              </div>
+            </div>
+            <div class="chart-wrap"><svg id="svgForecastA" viewBox="0 0 300 88" width="100%" height="100%"></svg></div>
+            <div class="chart-labels"><span>12 يوليو</span><span>22 يوليو</span><span>27 يوليو</span></div>
+            <div class="forecast-stats">
+              <div class="fstat"><div class="fstat-label">الرصيد الحالي</div><div class="fstat-value">1,820 رس</div></div>
+              <div class="fstat"><div class="fstat-label">متوسط الصرف اليومي</div><div class="fstat-value">364 رس</div></div>
+            </div>
+            <div class="btn-stack">
+              <button class="btn btn-teal">✓ حوّل للادخار الآن</button>
+              <button class="btn btn-outline" onclick="openChat('subs')">راجع المصاريف</button>
+              <button class="btn btn-outline" onclick="openChat('subs')">عرض التفاصيل</button>
+            </div>
+          </div>
+        </div>
+        <div class="wa-inputbar">
+          <span class="wa-icon-btn">➕</span>
+          <input type="text" placeholder="اكتب رسالة..." disabled>
+          <span class="wa-icon-btn">📷</span>
+          <span class="wa-icon-btn">🎤</span>
+        </div>
+      </div>
+
+      <!-- Chat: subscriptions -->
+      <div class="wa-chat" id="chatSubs">
+        <div class="wa-chat-header">
+          <span class="wa-back" onclick="openChat('forecast')">←</span>
+          <div class="wa-avatar">📈</div>
+          <div>
+            <div class="wa-chat-title">لماج</div>
+            <div class="wa-chat-sub">المساعد المالي الذكي ✅</div>
+          </div>
+          <span class="wa-dots">⋮</span>
+        </div>
+        <div class="wa-tabs">
+          <div class="wa-tab" onclick="openChat('forecast')">التوقعات</div>
+          <div class="wa-tab active" onclick="openChat('subs')">الاشتراكات</div>
+          <div class="wa-tab" onclick="openChat('family')">👨‍👩‍👧 العائلة</div>
+        </div>
+        <div class="wa-messages">
+          <div class="subs-card">
+            <div class="subs-head">🔍 فحص الاشتراكات</div>
+            <div class="subs-sub">عندي 8 اشتراكات نشطة</div>
+            <div id="subsListWa"></div>
+            <div class="unused-banner">
+              <div class="unused-banner-text">3 اشتراكات غير مستخدمة</div>
+              <div class="unused-banner-value">توفير محتمل: 139 رس / شهر</div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-coral" onclick="cancelUnused()">إلغاء الاشتراكات غير المستخدمة</button>
+            <button class="btn btn-outline">عرض جميع الاشتراكات</button>
+          </div>
+        </div>
+        <div class="wa-inputbar">
+          <span class="wa-icon-btn">➕</span>
+          <input type="text" placeholder="اكتب رسالة..." disabled>
+          <span class="wa-icon-btn">📷</span>
+          <span class="wa-icon-btn">🎤</span>
+        </div>
+      </div>
+
+      <!-- Chat: family -->
+      <div class="wa-chat" id="chatFamily">
+        <div class="wa-chat-header">
+          <span class="wa-back" onclick="openChat('forecast')">←</span>
+          <div class="wa-avatar">📈</div>
+          <div>
+            <div class="wa-chat-title">لماج</div>
+            <div class="wa-chat-sub">المساعد المالي الذكي ✅</div>
+          </div>
+          <span class="wa-dots">⋮</span>
+        </div>
+        <div class="wa-tabs">
+          <div class="wa-tab" onclick="openChat('forecast')">التوقعات</div>
+          <div class="wa-tab" onclick="openChat('subs')">الاشتراكات</div>
+          <div class="wa-tab active" onclick="openChat('family')">👨‍👩‍👧 العائلة</div>
+        </div>
+        <div class="wa-messages">
+          <div class="wa-bubble">لاحظت شي بميزانية العائلة المشتركة 👀</div>
+          <div class="suggestion-card">
+            <div class="suggestion-head">
+              <span class="suggestion-icon">🛒</span>
+              <div>
+                <div class="suggestion-title">ميزانية السوبرماركت قاربت على الانتهاء</div>
+                <div class="suggestion-text">صرفتوا 1,850 من أصل 2,000 رس هالشهر (92%). وبنفس الوقت رصدت اشتراك نتفليكس غير مستخدم بحساب الابن — تبي ألغيه وأحوّل المبلغ يغطي العجز؟</div>
+              </div>
+            </div>
+            <div class="suggestion-actions">
+              <button class="btn btn-teal" onclick="applyFamilySuggestion()">✓ ألغِ وحوّل المبلغ</button>
+              <button class="btn btn-outline">لاحقاً</button>
+            </div>
+          </div>
+        </div>
+        <div class="wa-inputbar">
+          <span class="wa-icon-btn">➕</span>
+          <input type="text" placeholder="اكتب رسالة..." disabled>
+          <span class="wa-icon-btn">📷</span>
+          <span class="wa-icon-btn">🎤</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= CONTEXT B: APP DASHBOARD ============================= -->
+    <div id="ctxApp">
+      <div class="app-header">
+        <div class="app-header-title">☰ لماج</div>
+        <div class="app-bell">🔔</div>
+      </div>
+
+      <!-- Home -->
+      <div class="app-screen active" id="screenHome">
+        <div class="balance-card">
+          <div>
+            <div class="balance-label">الرصيد الحالي</div>
+            <div class="balance-value">1,820 رس</div>
+            <div class="balance-updated">آخر تحديث: الآن</div>
+          </div>
+          <div class="balance-ring">💰</div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-label">معدل الصرف اليومي</div>
+            <div class="stat-value">364 <small>رس</small></div>
+            <div class="stat-tag">▲ أعلى من المعتاد 1%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">التوقعات</div>
+            <div class="stat-value" style="color:var(--coral)">5 <small>أيام</small></div>
+            <div class="stat-tag" style="color:var(--muted)">رصيدك ممكن ينفد خلال</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-icon">💡</span>
+          <div>
+            <div class="tip-title">نصيحة لماج</div>
+            <div class="tip-text">لو خفضت مصاريفك اليومية 67 رس، تستمر معك الرصيد 12 يوم إضافية</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forecast -->
+      <div class="app-screen" id="screenForecast">
+        <div class="range-select">30 يوم القادمة ⌄</div>
+        <div class="big-chart-wrap"><svg id="svgForecastB" viewBox="0 0 300 150" width="100%" height="100%"></svg></div>
+        <div class="chart-labels"><span>اليوم</span><span>10 يوم</span><span>20 يوم</span><span>30 يوم</span></div>
+
+        <div class="minmax-row">
+          <div class="minmax-card">
+            <div class="minmax-label">↑ أعلى يوم صرف</div>
+            <div class="minmax-value">586 رس</div>
+            <div class="minmax-date">22 يوليو</div>
+          </div>
+          <div class="minmax-card">
+            <div class="minmax-label">↓ أقل يوم صرف</div>
+            <div class="minmax-value">212 رس</div>
+            <div class="minmax-date">3 أغسطس</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-icon">💡</span>
+          <div>
+            <div class="tip-title">نصيحة لماج</div>
+            <div class="tip-text">لو خفضت مصاريفك اليومية 67 رس، تستمر معك الرصيد 12 يوم إضافية</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscriptions -->
+      <div class="app-screen" id="screenSubs">
+        <div class="subs-filter-row">
+          <span class="filter-pill active" onclick="filterSubs('all', this)">الكل (8)</span>
+          <span class="filter-pill" onclick="filterSubs('active', this)">نشط (5)</span>
+          <span class="filter-pill" onclick="filterSubs('inactive', this)">غير نشط (3)</span>
+        </div>
+        <div class="subs-list-card" id="subsListApp"></div>
+      </div>
+
+      <!-- Goals -->
+      <div class="app-screen" id="screenGoals">
+        <div class="goal-card">
+          <div class="goal-top">
+            <span class="goal-name">جوال جديد</span>
+            <span class="goal-icon">🎯</span>
+          </div>
+          <div class="goal-progress-bg"><div class="goal-progress-fill" style="width:80%"></div></div>
+          <div class="goal-nums"><span>باقي <b>120 رس</b></span><span><b>2,880</b> / 3,000 رس</span></div>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">🎯</span>
+          <div>
+            <div class="tip-title">تحفيز لماج</div>
+            <div class="tip-text">أنت قريب! بس 120 رس وتوصل هدفك 🎯</div>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-top">
+            <span class="goal-name">رحلة نهاية السنة</span>
+            <span class="goal-icon">✈️</span>
+          </div>
+          <div class="goal-progress-bg"><div class="goal-progress-fill" style="width:34%"></div></div>
+          <div class="goal-nums"><span>باقي <b>3,300 رس</b></span><span><b>1,700</b> / 5,000 رس</span></div>
+        </div>
+      </div>
+
+      <!-- Family -->
+      <div class="app-screen" id="screenFamily">
+        <div class="family-members-row">
+          <div class="family-member">
+            <div class="family-avatar" style="background:var(--teal-tint)">👨</div>
+            <div class="family-name">أنت</div>
+          </div>
+          <div class="family-member">
+            <div class="family-avatar" style="background:var(--amber-tint)">👩</div>
+            <div class="family-name">الزوجة</div>
+          </div>
+          <div class="family-member">
+            <div class="family-avatar" style="background:#EAE7FC">🧑</div>
+            <div class="family-name">الابن</div>
+          </div>
+          <div class="family-member">
+            <div class="family-avatar" style="background:var(--coral-tint)">👧</div>
+            <div class="family-name">الابنة</div>
+          </div>
+          <div class="family-member">
+            <div class="family-add">+</div>
+            <div class="family-name">إضافة</div>
+          </div>
+        </div>
+
+        <div class="family-code-card">
+          <div>
+            <div class="family-code-text">شارك هذا الكود لربط فرد جديد بالعائلة</div>
+            <div class="family-code-value">FAM-2847</div>
+          </div>
+          <button class="family-code-btn">نسخ الكود</button>
+        </div>
+
+        <div class="section-label">ميزانيات العائلة المشتركة</div>
+
+        <div class="budget-card">
+          <div class="budget-top">
+            <span class="budget-name">🛒 مقاضي المنزل</span>
+            <span class="budget-nums"><b>1,850</b> / 2,000 رس</span>
+          </div>
+          <div class="budget-bar-bg"><div class="budget-bar-fill" style="width:92%;background:var(--coral)"></div></div>
+        </div>
+        <div class="budget-card">
+          <div class="budget-top">
+            <span class="budget-name">🎓 فواتير المدارس</span>
+            <span class="budget-nums"><b>600</b> / 800 رس</span>
+          </div>
+          <div class="budget-bar-bg"><div class="budget-bar-fill" style="width:75%;background:var(--amber)"></div></div>
+        </div>
+        <div class="budget-card">
+          <div class="budget-top">
+            <span class="budget-name">💡 الخدمات والفواتير</span>
+            <span class="budget-nums"><b>320</b> / 400 رس</span>
+          </div>
+          <div class="budget-bar-bg"><div class="budget-bar-fill" style="width:80%;background:var(--teal)"></div></div>
+        </div>
+
+        <div class="section-label">اقتراح لماج</div>
+        <div class="suggestion-card">
+          <div class="suggestion-head">
+            <span class="suggestion-icon">🛒</span>
+            <div>
+              <div class="suggestion-title">ميزانية السوبرماركت قاربت على الانتهاء</div>
+              <div class="suggestion-text">رصدت اشتراك نتفليكس غير مستخدم بحساب الابن (55 رس/شهر) — تبي ألغيه وأحوّل المبلغ يغطي العجز؟</div>
+            </div>
+          </div>
+          <div class="suggestion-actions">
+            <button class="btn btn-teal" onclick="applyFamilySuggestion()">✓ ألغِ وحوّل المبلغ</button>
+            <button class="btn btn-outline">لاحقاً</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active" data-screen="screenHome" onclick="setAppScreen('screenHome', this)"><span class="nav-ic">🏠</span>الرئيسية</div>
+        <div class="nav-item" data-screen="screenForecast" onclick="setAppScreen('screenForecast', this)"><span class="nav-ic">📈</span>التوقعات</div>
+        <div class="nav-item" data-screen="screenSubs" onclick="setAppScreen('screenSubs', this)"><span class="nav-ic">🔁</span>الاشتراكات</div>
+        <div class="nav-item" data-screen="screenFamily" onclick="setAppScreen('screenFamily', this)"><span class="nav-ic">👨‍👩‍👧</span>العائلة</div>
+        <div class="nav-item" data-screen="screenGoals" onclick="setAppScreen('screenGoals', this)"><span class="nav-ic">🎯</span>الأهداف</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-row">
-  <div class="stat-card">
-    <div class="stat-label">أعلى مصروف</div>
-    <div class="stat-value up">1,200 ر.س</div>
-    <div class="stat-sub">مطاعم وكافيهات ☕</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">وفرت هذا الشهر</div>
-    <div class="stat-value down">340 ر.س</div>
-    <div class="stat-sub">مقارنة بالشهر الماضي 📉</div>
-  </div>
-</div>
-
-<!-- SUBSCRIPTIONS AUDIT -->
-<div class="panel-card">
-  <div class="panel-header">
-    <span class="panel-title">🔍 تدقيق الاشتراكات</span>
-    <span class="panel-badge" id="subsSavings">وفّر حتى 244 ر.س/شهر</span>
-  </div>
-
-  <div class="sub-item">
-    <div class="sub-info">
-      <div class="sub-name" id="subName-netflix">نتفليكس</div>
-      <div class="sub-meta">45 ر.س/شهر  ·  آخر استخدام: منذ 62 يوم</div>
-    </div>
-    <div class="sub-status unused" id="subStatus-netflix">غير مستخدم</div>
-    <button class="sub-cancel" id="subBtn-netflix" onclick="cancelSub('netflix', 45, this)">إلغاء</button>
-  </div>
-
-  <div class="sub-item">
-    <div class="sub-info">
-      <div class="sub-name">سبوتيفاي</div>
-      <div class="sub-meta">20 ر.س/شهر  ·  آخر استخدام: اليوم</div>
-    </div>
-    <div class="sub-status active">نشط</div>
-  </div>
-
-  <div class="sub-item">
-    <div class="sub-info">
-      <div class="sub-name" id="subName-gym">نادي فيتنس تايم</div>
-      <div class="sub-meta">199 ر.س/شهر  ·  آخر استخدام: منذ 18 يوم</div>
-    </div>
-    <div class="sub-status low" id="subStatus-gym">استخدام منخفض</div>
-    <button class="sub-cancel" id="subBtn-gym" onclick="cancelSub('gym', 199, this)">إلغاء</button>
-  </div>
-
-  <div class="sub-item">
-    <div class="sub-info">
-      <div class="sub-name">آبل آيكلاود+</div>
-      <div class="sub-meta">35 ر.س/شهر  ·  آخر استخدام: اليوم</div>
-    </div>
-    <div class="sub-status active">نشط</div>
-  </div>
-</div>
-
-<!-- SAVINGS GOAL -->
-<div class="panel-card">
-  <div class="panel-header">
-    <span class="panel-title">🎯 هدف الادخار</span>
-  </div>
-  <div class="goal-form">
-    <input type="text" id="goalName" placeholder="اسم الهدف (مثال: رحلة، جوال جديد)">
-    <div class="goal-row">
-      <input type="number" id="goalAmount" placeholder="المبلغ ر.س">
-      <input type="number" id="goalWeeks" placeholder="عدد الأسابيع">
-    </div>
-    <button class="goal-btn" onclick="calcGoal()">احسب خطة التوفير</button>
-  </div>
-  <div class="goal-result" id="goalResult" style="display:none"></div>
-</div>
-
-<!-- CHAT -->
-<div class="chat-section">
-  <div class="chat-header">
-    <div class="chat-avatar">🤖</div>
-    <div>
-      <div class="chat-title">مساعدك المالي الذكي</div>
-      <div class="chat-status">● متصل الآن</div>
-    </div>
-  </div>
-
-  <div class="chat-messages" id="messages"></div>
-
-  <div class="live-note">
-    💡 هذا السيناريو معروض هنا بشكل جاهز مسبقاً حتى يشتغل لأي شخص يفتح الرابط.
-    المحادثة الحرة مع الذكاء الاصطناعي وقراءة صور الفواتير تلقائياً متاحة في العرض المباشر.
-  </div>
-</div>
-
-<div class="wa-hint">
-  <span class="wa-hint-dot"></span>
-  بالنسخة الحقيقية، تقدر ترسل صورة فاتورتك بنفس الطريقة مباشرة على واتساب لمّاح — مو لازم تفتح أي تطبيق
-</div>
+<div class="footer-note">نموذج تفاعلي — هاكاثون أمد × الإنماء</div>
 
 <script>
-
-  // ── Lockscreen clock ──
-  function paintClock() {
-    const now = new Date();
-    let h = now.getHours() % 12; if (h === 0) h = 12;
-    const m = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('lockTime').textContent = `${h}:${m}`;
-  }
-  paintClock();
-  setInterval(paintClock, 30000);
-
-  // Notification drops in shortly after the lockscreen appears
-  setTimeout(() => {
-    document.getElementById('waNotif').classList.add('show');
-  }, 900);
-
-  let appOpened = false;
-  function openApp() {
-    if (appOpened) return;
-    appOpened = true;
-    document.getElementById('lockscreen').classList.add('hidden');
-    startAppLoading();
-  }
-
-  function startAppLoading() {
-    const l = document.getElementById('loading');
-    l.style.display = 'flex';
-    l.style.opacity = '1';
-    // restart the load-bar animation
-    const bar = l.querySelector('.loading-fill');
-    bar.style.animation = 'none';
-    void bar.offsetWidth;
-    bar.style.animation = 'load 1.1s ease forwards';
-
-    setTimeout(() => {
-      l.style.opacity = '0';
-      setTimeout(() => { l.style.display = 'none'; }, 500);
-      // Animate budget bar
-      setTimeout(() => {
-        document.getElementById('budgetFill').style.width = '59%';
-      }, 400);
-      // Kick off the scripted WhatsApp-style alert conversation
-      setTimeout(runIntroConversation, 700);
-    }, 1100);
-  }
-
-  // ── Scripted intro conversation (mirrors the WhatsApp alert the user tapped) ──
-  const weekSpend = [
-    { day: 'سبت', amount: 65 },
-    { day: 'أحد', amount: 90 },
-    { day: 'اثن', amount: 70 },
-    { day: 'ثلا', amount: 110 },
-    { day: 'أرب', amount: 85 },
-    { day: 'خمي', amount: 120 },
-    { day: 'جمعة', amount: 340, flag: true },
+  const SUBS = [
+    { name:'Netflix', price:'55 رس / شهر', icon:'🎬', color:'#E5384A', active:true },
+    { name:'Spotify', price:'21 رس / شهر', icon:'🎵', color:'#1DB954', active:true },
+    { name:'YouTube Premium', price:'29 رس / شهر', icon:'▶️', color:'#FF0000', active:true },
+    { name:'GymNation', price:'120 رس / شهر', icon:'💪', color:'#7C6AF7', active:false },
+    { name:'Shahid VIP', price:'19 رس / شهر', icon:'📺', color:'#1FBF9F', active:true },
+    { name:'Apple iCloud', price:'10 رس / شهر', icon:'☁️', color:'#8E8E93', active:true },
+    { name:'تطبيق تأمل ويوغا', price:'29 رس / شهر', icon:'🧘', color:'#F5A524', active:false },
+    { name:'PlayStation Plus', price:'45 رس / شهر', icon:'🎮', color:'#003791', active:false },
   ];
 
-  function addChartBubble() {
-    const msgs = document.getElementById('messages');
-    const max = Math.max(...weekSpend.map(d => d.amount));
-    const wrap = document.createElement('div');
-    wrap.className = 'week-chart';
-    wrap.innerHTML = `
-      <div class="week-chart-title">📊 صرفك على المطاعم — آخر 7 أيام</div>
-      <div class="week-chart-bars">
-        ${weekSpend.map(d => `
-          <div class="week-chart-col">
-            <div class="week-chart-bar${d.flag ? ' flag' : ''}" data-h="${Math.round((d.amount / max) * 100)}"></div>
-            <div class="week-chart-day">${d.day}</div>
-          </div>`).join('')}
+  function renderSubs(containerId, compact) {
+    const el = document.getElementById(containerId);
+    const list = compact ? SUBS.slice(0, 5) : SUBS;
+    el.innerHTML = list.map(s => `
+      <div class="sub-row" data-active="${s.active}">
+        <div class="sub-icon" style="background:${s.color}22;color:${s.color}">${s.icon}</div>
+        <div class="sub-info">
+          <div class="sub-name">${s.name}</div>
+          <div class="sub-price">${s.price}</div>
+        </div>
+        <span class="sub-status ${s.active ? 'status-active' : 'status-inactive'}">${s.active ? 'نشط' : 'غير نشط'}</span>
       </div>
-      <div class="week-chart-sub">متوسطك الأسبوعي: 90 ر.س/يوم</div>
-    `;
-    msgs.appendChild(wrap);
-    msgs.scrollTop = msgs.scrollHeight;
-    requestAnimationFrame(() => {
-      wrap.querySelectorAll('.week-chart-bar').forEach(b => {
-        setTimeout(() => { b.style.height = b.dataset.h + '%'; }, 60);
-      });
+    `).join('');
+  }
+  renderSubs('subsListWa', true);
+  renderSubs('subsListApp', false);
+
+  function filterSubs(mode, el) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('#subsListApp .sub-row').forEach(row => {
+      const isActive = row.dataset.active === 'true';
+      row.style.display = mode === 'all' || (mode === 'active' && isActive) || (mode === 'inactive' && !isActive) ? 'flex' : 'none';
     });
   }
 
-  function runIntroConversation() {
-    document.getElementById('messages').innerHTML = '';
-    document.querySelector('.chat-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    const typing1 = showTyping();
-    setTimeout(() => {
-      typing1.remove();
-      addMsg('لاحظت إنك صرفت <strong class="highlight">340 ر.س</strong> على مطعم اليوم — أعلى من معدلك الأسبوعي بمقدار 3 أضعاف تقريباً 👋', 'bot');
-      history.push({ role: 'assistant', content: 'لاحظت إنك صرفت 340 ريال على مطعم اليوم، أعلى من معدلك الأسبوعي بمقدار 3 أضعاف تقريباً.' });
-
-      setTimeout(() => {
-        addChartBubble();
-        const typing2 = showTyping();
-        setTimeout(() => {
-          typing2.remove();
-          addMsg('لو قللت صرف المطاعم للنص هالأسبوع، توفر تقريباً <strong class="good">210 ر.س</strong>. تحب أفعّل لك تنبيه لو تجاوزت حد يومي معيّن؟', 'bot');
-          history.push({ role: 'assistant', content: 'لو قللت صرف المطاعم للنص هالأسبوع، توفر تقريباً 210 ريال. تحب أفعّل لك تنبيه لو تجاوزت حد يومي معيّن؟' });
-        }, 1000);
-      }, 900);
-    }, 1100);
+  function cancelUnused() {
+    document.querySelectorAll('#subsListWa .sub-row[data-active="false"]').forEach(row => {
+      row.style.opacity = '0.35';
+      row.querySelector('.sub-status').textContent = 'ملغى ✓';
+    });
+    event.target.textContent = '✅ تم الإلغاء — وفرت 139 رس/شهر';
+    event.target.disabled = true;
   }
 
-  // ── Subscription audit ──
-  let monthlySavedFromSubs = 0;
-  const cancelledSubs = [];
-  function cancelSub(id, amount, btn) {
-    const nameEl = document.getElementById(`subName-${id}`);
-    const statusEl = document.getElementById(`subStatus-${id}`);
-    if (nameEl) nameEl.classList.add('cancelled');
-    if (statusEl) { statusEl.textContent = 'ملغى'; statusEl.className = 'sub-status'; statusEl.style.background = 'rgba(122,138,170,0.15)'; statusEl.style.color = 'var(--muted)'; }
-    btn.textContent = '✓ تم الإلغاء';
+  // ── context toggle ──
+  function setContext(ctx) {
+    document.getElementById('ctxWhatsapp').classList.toggle('active', ctx === 'wa');
+    document.getElementById('ctxApp').classList.toggle('active', ctx === 'app');
+    document.getElementById('btnWa').classList.toggle('active', ctx === 'wa');
+    document.getElementById('btnApp').classList.toggle('active', ctx === 'app');
+  }
+
+  // ── whatsapp chat nav ──
+  function openChat(which) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('chatForecast').classList.toggle('active', which === 'forecast');
+    document.getElementById('chatSubs').classList.toggle('active', which === 'subs');
+    document.getElementById('chatFamily').classList.toggle('active', which === 'family');
+  }
+  function backToLock() {
+    document.getElementById('chatForecast').classList.remove('active');
+    document.getElementById('chatSubs').classList.remove('active');
+    document.getElementById('chatFamily').classList.remove('active');
+    document.getElementById('lockScreen').style.display = 'flex';
+  }
+  function applyFamilySuggestion(evt) {
+    const btn = (evt && evt.target) || event.target;
+    btn.textContent = '✅ تم الإلغاء والتحويل — الميزانية تغطت';
     btn.disabled = true;
-    monthlySavedFromSubs += amount;
-    cancelledSubs.push(id);
-    const badge = document.getElementById('subsSavings');
-    badge.textContent = `وفّرت ${monthlySavedFromSubs} ر.س/شهر فعلياً`;
-    badge.style.background = 'rgba(34,197,94,0.22)';
+    btn.nextElementSibling.style.display = 'none';
   }
 
-  // ── Savings goal ──
-  const currentWeeklySavingRate = 340 / 4.3; // based on "وفرت هذا الشهر" stat
-  function calcGoal() {
-    const name = document.getElementById('goalName').value.trim() || 'هدفك';
-    const amount = parseFloat(document.getElementById('goalAmount').value);
-    const weeks = parseFloat(document.getElementById('goalWeeks').value);
-    const box = document.getElementById('goalResult');
-    if (!amount || !weeks || amount <= 0 || weeks <= 0) {
-      box.className = 'goal-result warn';
-      box.style.display = 'block';
-      box.innerHTML = 'أدخل المبلغ المطلوب وعدد الأسابيع لحساب خطة التوفير 🙂';
-      return;
-    }
-    const neededWeekly = amount / weeks;
-    const effectiveWeeklyRate = currentWeeklySavingRate + (monthlySavedFromSubs / 4.3);
-    box.style.display = 'block';
-    if (neededWeekly <= effectiveWeeklyRate) {
-      box.className = 'goal-result ok';
-      box.innerHTML = `بمعدل توفيرك الحالي (<b>${effectiveWeeklyRate.toFixed(0)} ر.س/أسبوع</b>)، تقدر تحقق <b>${name}</b> (${amount} ر.س) في <b>${weeks} أسبوع</b> براحتك — وممكن أسرع لو وفرت أكثر 👍`;
-    } else {
-      const gap = (neededWeekly - effectiveWeeklyRate).toFixed(0);
-      box.className = 'goal-result warn';
-      box.innerHTML = `تحتاج توفير <b>${neededWeekly.toFixed(0)} ر.س/أسبوع</b> لتحقيق <b>${name}</b> خلال ${weeks} أسبوع، وهذا أعلى من معدلك الحالي بـ <b>${gap} ر.س</b>. جرّب تلغي اشتراك غير مستخدم من القائمة أعلاه لتقريب الفرق 💡`;
-    }
+  // ── app bottom nav ──
+  function setAppScreen(id, el) {
+    document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
   }
 
+  // ── charts (simple SVG line + gradient area) ──
+  function drawChart(svgId, points, danger) {
+    const svg = document.getElementById(svgId);
+    const w = 300, h = svg.viewBox.baseVal.height;
+    const max = Math.max(...points), min = Math.min(...points);
+    const stepX = w / (points.length - 1);
+    const scaleY = v => h - 10 - ((v - min) / (max - min || 1)) * (h - 20);
+    const coords = points.map((v, i) => [i * stepX, scaleY(v)]);
+    const line = coords.map(([x,y]) => `${x},${y}`).join(' ');
+    const areaId = svgId + 'grad';
+    const color = danger ? '#F0654F' : '#12A594';
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="${areaId}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <polygon points="0,${h} ${line} ${w},${h}" fill="url(#${areaId})"/>
+      <polyline points="${line}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${coords.map(([x,y],i) => i === coords.length-1 ? `<circle cx="${x}" cy="${y}" r="4.5" fill="${color}"/>` : '').join('')}
+    `;
+  }
+
+  drawChart('svgForecastA', [15,13.5,12,10.5,9,7.5,6,4.5,3,1.8], true);
+  drawChart('svgForecastB', [15,14,13.2,12.5,11.8,10.9,10,9.3,8.6,7.8,7,6.3,5.6,4.9,4.2,3.6,3,2.4], true);
 </script>
 </body>
 </html>
