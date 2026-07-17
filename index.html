@@ -562,11 +562,11 @@
 
     <div class="sub-item">
       <div class="sub-info">
-        <div class="sub-name" id="subName-gym">نادي فيتنس تايم</div>
+        <div class="sub-name" id="subName-canva">كانفا</div>
         <div class="sub-meta">199 ر.س/شهر  ·  آخر استخدام: منذ 18 يوم</div>
       </div>
-      <div class="sub-status low" id="subStatus-gym">استخدام منخفض</div>
-      <button class="sub-cancel" id="subBtn-gym" onclick="requestCancelSub('gym', 199, this)">إلغاء</button>
+      <div class="sub-status low" id="subStatus-canva">استخدام منخفض</div>
+      <button class="sub-cancel" id="subBtn-canva" onclick="requestCancelSub('canva', 199, this)">إلغاء</button>
     </div>
 
     <div class="sub-item">
@@ -744,7 +744,7 @@
   const CHAT_PROXY_URL = 'https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com';
 
   const VALID_CREDENTIALS = { id: '1029384756', password: 'amad2026' };
-  const SUB_PRICES = { netflix: 45, gym: 199, yoga: 29 };
+  const SUB_PRICES = { netflix: 45, canva: 199, yoga: 29 };
 
   const LS_PREFIX = 'hasib_demo:';
   const hasWindowStorage = () => typeof window.storage !== 'undefined' && window.storage !== null;
@@ -939,7 +939,7 @@
     }
   }
 
-  const SUB_NAMES = { netflix: 'نتفليكس', gym: 'نادي فيتنس تايم', yoga: 'تطبيق تأمل ويوغا' };
+  const SUB_NAMES = { netflix: 'نتفليكس', canva: 'كانفا', yoga: 'تطبيق تأمل ويوغا' };
 
   // ── Agent permissions (trust layer) ──
   let AUTONOMY_THRESHOLD = 50;
@@ -1198,7 +1198,7 @@
 تدقيق الاشتراكات (الميزة الرئيسية):
 - نتفليكس: 45 ريال/شهر، غير مستخدم منذ 62 يوم — مرشح للإلغاء
 - سبوتيفاي: 20 ريال/شهر، نشط يومياً
-- نادي فيتنس تايم: 199 ريال/شهر، استخدام منخفض (منذ 18 يوم) — مرشح للإلغاء
+- كانفا: 199 ريال/شهر، استخدام منخفض (منذ 18 يوم) — مرشح للإلغاء
 - آبل آيكلاود+: 35 ريال/شهر، نشط
 - تطبيق تأمل ويوغا: 29 ريال/شهر، غير مستخدم منذ 47 يوم — مرشح للإلغاء
 - إجمالي التوفير الممكن لو ألغى الاشتراكات الثلاثة غير المستخدمة: 273 ريال/شهر (يعني حوالي 3,276 ريال بالسنة)
@@ -1305,13 +1305,13 @@
       return `أكبر مصروف عندك هذا الشهر مطاعم وكافيهات بـ<b>1,200 ر.س</b>، يليها اشتراكاتك (299 ر.س/شهر، بعضها منسي). راجعي التفاصيل من "الرئيسية" 📊`;
     }
     if (t.includes('أوفر') || t.includes('توفير') || t.includes('وفر')) {
-      return `أسرع طريقة: ألغي الاشتراكات غير المستخدمة (نتفليكس، النادي، تطبيق اليوغا) ووفري حتى <b>273 ر.س/شهر</b> — يعني <b>3,276 ر.س</b> بالسنة 💰`;
+      return `أسرع طريقة: ألغي الاشتراكات غير المستخدمة (نتفليكس، كانفا، تطبيق اليوغا) ووفري حتى <b>273 ر.س/شهر</b> — يعني <b>3,276 ر.س</b> بالسنة 💰`;
     }
     if (t.includes('هدف') || t.includes('ادخار')) {
       return `افتحي بطاقة "🎯 هدف الادخار" بصفحة الرئيسية، حطي اسم هدفك والمبلغ وعدد الأسابيع، وبحسب لك خطة توفير أسبوعية فورية 🎯`;
     }
     if (t.includes('اشتراك')) {
-      return `عندك 3 اشتراكات مرشحة للإلغاء: <b>نتفليكس</b> (45 ر.س، منسي 62 يوم)، <b>نادي فيتنس تايم</b> (199 ر.س، استخدام منخفض)، و<b>تطبيق تأمل ويوغا</b> (29 ر.س، منسي 47 يوم). جربي تلغين وحد منها من صفحة الرئيسية ✅`;
+      return `عندك 3 اشتراكات مرشحة للإلغاء: <b>نتفليكس</b> (45 ر.س، منسي 62 يوم)، <b>كانفا</b> (199 ر.س، استخدام منخفض)، و<b>تطبيق تأمل ويوغا</b> (29 ر.س، منسي 47 يوم). جربي تلغين وحد منها من صفحة الرئيسية ✅`;
     }
     return `أقدر أساعدك بمتابعة صرفك، اكتشاف الاشتراكات المنسية، أو حساب خطة ادخار. جربي أحد الأزرار السريعة أو اسأليني بشكل مباشر 🙂`;
   }
@@ -1349,3 +1349,4 @@
 </script>
 </body>
 </html>
+
