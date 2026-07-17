@@ -75,6 +75,19 @@
   .balance-amount { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .balance-currency { font-size: 14px; color: var(--muted); margin-right: 4px; }
 
+  .balance-transfer-btn {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(76,175,125,0.15); border: 1px solid rgba(76,175,125,0.3);
+    color: var(--green); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.15s, background 0.2s; padding: 0;
+    animation: transferPulse 2.4s infinite;
+  }
+  .balance-transfer-btn:hover { transform: scale(1.1); background: rgba(76,175,125,0.28); }
+  @keyframes transferPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76,175,125,0.35); }
+    50% { box-shadow: 0 0 0 5px rgba(76,175,125,0); }
+  }
+
   .budget-bar-wrap { margin-top: 16px; }
   .budget-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
   .budget-bar { height: 6px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
@@ -507,7 +520,12 @@
     <div class="balance-row">
       <div>
         <div class="balance-label">الرصيد المتاح</div>
-        <div class="balance-amount"><span class="balance-currency">ر.س</span>3,240</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="balance-amount"><span class="balance-currency">ر.س</span>3,240</div>
+          <button class="balance-transfer-btn" onclick="transferRemainingToSavings()" title="حوّل المتبقي للادخار قبل الراتب">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+          </button>
+        </div>
       </div>
       <div style="text-align:left">
         <div class="balance-label">الراتب الشهري</div>
@@ -1040,6 +1058,49 @@
     storageSet('chatHistory', JSON.stringify(history));
   }
 
+  // ── Transfer remaining balance to savings before next salary ──
+  function transferRemainingToSavings() {
+    switchView('chat');
+    const currentBalance = 3240;
+    const dailyBurnRate = 4760 / 21;
+    const daysLeft = 9;
+    const neededForRest = Math.round(dailyBurnRate * daysLeft);
+    const safeAmount = Math.max(currentBalance - neededForRest, 0);
+
+    if (safeAmount <= 0) {
+      addMsg(`راجعت أرقامك، وحالياً ما فيه فائض آمن أحوله بدون ما يأثر على مصاريفك الأساسية لين نهاية الشهر. أرجع أذكّرك أول ما يتوفر مبلغ آمن 👍`, 'bot');
+      return;
+    }
+
+    const div = document.createElement('div');
+    div.className = 'msg forecast';
+    div.innerHTML = `💰 قبل ما ينزل راتبك الجديد، عندك <b>${currentBalance} ر.س</b> بحسابك، وتحتاجين تقريباً <b>${neededForRest} ر.س</b> باقي ${daysLeft} أيام هالشهر. أقدر أحوّل الفائض الآمن (<b>${safeAmount} ر.س</b>) لحساب الادخار الحين وأخلي لك رصيد يكفيك براحة؟
+      <div style="margin-top:10px;">
+        <button class="msg-action-btn" onclick="confirmTransferRemaining(${safeAmount}, ${currentBalance}, this)">✅ حوّل ${safeAmount} ر.س للادخار</button>
+      </div>`;
+    document.getElementById('messages').appendChild(div);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+  }
+
+  function confirmTransferRemaining(amount, previousBalance, btn) {
+    btn.disabled = true;
+    btn.textContent = '⏳ جاري التحويل...';
+
+    setTimeout(() => {
+      const newBalance = previousBalance - amount;
+      const balanceEl = document.querySelector('.balance-amount');
+      if (balanceEl) balanceEl.innerHTML = `<span class="balance-currency">ر.س</span>${newBalance.toLocaleString('en-US')}`;
+
+      btn.textContent = '✅ تم التحويل';
+      const msg = `تم! ✅ حوّلت <b>${amount} ر.س</b> لحساب الادخار، وخليت لك <b>${newBalance} ر.س</b> يكفونك براحة لين نهاية الشهر. رصيدك محدث بصفحة "الرئيسية".`;
+      addMsg(msg, 'bot');
+      history.push({ role: 'assistant', content: msg });
+      storageSet('chatHistory', JSON.stringify(history));
+
+      setTimeout(() => offerGoalChain(amount), 700);
+    }, 900);
+  }
+
   // ── Financial weather forecast follow-up ──
   function prepareForecastPlan(btn) {
     btn.disabled = true;
@@ -1349,4 +1410,3 @@
 </script>
 </body>
 </html>
-
